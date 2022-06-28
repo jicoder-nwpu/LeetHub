@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloController {
 
-    @ResponseBody
     @RequestMapping("/index")
     public String hello(){
-        return "hello world!";
+        return "index";
     }
 
 }
