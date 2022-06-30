@@ -1,4 +1,4 @@
-package com.jicoder.leethub.mapper;
+package com.jicoder.leethub.dao;
 
 import com.jicoder.leethub.pojo.City;
 import org.apache.ibatis.annotations.Mapper;

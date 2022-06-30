@@ -1,7 +1,8 @@
-package com.jicoder.leethub.service;
+package com.jicoder.leethub.serviceimp;
 
-import com.jicoder.leethub.mapper.CityMapper;
+import com.jicoder.leethub.dao.CityMapper;
 import com.jicoder.leethub.pojo.City;
+import com.jicoder.leethub.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
