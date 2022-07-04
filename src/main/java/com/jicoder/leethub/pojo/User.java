@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class City {
+public class User {
+
     private int id;
-    private String name;
-    private String countryCode;
-    private String district;
-    private int population;
+    private String username;
+    private String password;
+    private Timestamp signupTime;
+
 }
