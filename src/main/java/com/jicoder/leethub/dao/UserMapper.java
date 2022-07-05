@@ -10,4 +10,7 @@ public interface UserMapper {
     @Select("select * from User where user_id=#{user_id}")
     User getUserById(int user_id);
 
+    @Select("select * from user where username=#{username} and password=#{password}")
+    User getUserByNameAnsPass(String username, String password);
+
 }
