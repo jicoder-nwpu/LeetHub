@@ -7,3 +7,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: P1D

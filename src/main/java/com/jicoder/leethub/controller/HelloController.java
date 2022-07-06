@@ -12,7 +12,7 @@ public class HelloController {
     @RequestMapping("")
     public String hello(HttpSession session){
         if(session.getAttribute("user") != null){
-            return "index";
+            return "redirect:/user";
         }
         return "login";
     }
