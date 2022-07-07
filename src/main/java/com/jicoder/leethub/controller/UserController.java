@@ -79,6 +79,12 @@ public class UserController {
     }
 
     @ResponseBody
+    @GetMapping("/info")
+    public User getUserInfo(HttpSession session){
+        return (User) session.getAttribute("user");
+    }
+
+    @ResponseBody
     @RequestMapping("/user/{user_id}")
     public User getUser(@PathVariable int user_id){
         return userService.getUser(user_id);

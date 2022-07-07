@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class User {
 
-    private int id;
+    private int user_id;
     private String username;
     private String password;
     private Timestamp signupTime;
