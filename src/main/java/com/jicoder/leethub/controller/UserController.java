@@ -1,6 +1,8 @@
 package com.jicoder.leethub.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.jicoder.leethub.pojo.Problem;
+import com.jicoder.leethub.pojo.Ranks;
 import com.jicoder.leethub.pojo.User;
 import com.jicoder.leethub.service.ProblemService;
 import com.jicoder.leethub.service.UserService;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -62,6 +66,15 @@ public class UserController {
         Date today = new Date(System.currentTimeMillis());
         Problem problem = problemService.getDailyProblem(today);
         model.addAttribute("todayProblem", problem);
+
+        List<Integer> dates = new ArrayList<>();
+        List<Integer> ranks = new ArrayList<>();
+        for(int i = 0; i < 9; i++){
+            dates.add(i);
+            ranks.add(100 - i);
+        }
+        Ranks commonRank = new Ranks(dates, ranks);
+        model.addAttribute("commonRank", JSON.toJSONString(commonRank));
         return "user/index";
     }
 
