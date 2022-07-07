@@ -126,8 +126,8 @@
                                             <span class="badge bg-success rounded-pill" th:if="${todayProblem.difficulty eq 'Easy'}">Easy</span>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
-                                            <button class="btn btn-link small" th:href="${todayProblem.url}">去做题</button>
-                                            <button class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</button>
+                                            <a type="button" class="btn btn-link small" th:href="${todayProblem.url}" target="_blank">去做题</a>
+                                            <a type="button" class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</a>
                                         </div>
                                     </div>
                                     <div class="card-footer" th:if="${#strings.isEmpty(todayProblem)}">
