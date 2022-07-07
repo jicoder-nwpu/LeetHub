@@ -116,38 +116,35 @@
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div class="card bg-body text-secondary mb-4">
+                                    <h5 class="m-lg-3">每日一题</h5>
+                                    <div class="card-footer" th:if="${todayProblem}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class=" card-body" th:text="${todayProblem.title}"></div>
+                                            <span class="badge bg-danger rounded-pill" th:if="${todayProblem.difficulty eq 'Hard'}">Hard</span>
+                                            <span class="badge bg-warning rounded-pill" th:if="${todayProblem.difficulty eq 'Medium'}">Medium</span>
+                                            <span class="badge bg-success rounded-pill" th:if="${todayProblem.difficulty eq 'Easy'}">Easy</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
+                                            <button class="btn btn-link small" th:href="${todayProblem.url}">去做题</button>
+                                            <button class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div class="card-body" th:text="${todayProblem.title}"></div>
-                                        <span class="badge bg-primary rounded-pill">14</span>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" th:href="${todayProblem.url}">去做题</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    <div class="card-footer" th:if="${#strings.isEmpty(todayProblem)}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class=" card-body">努力爬取中...</div>
+                                            <span class="badge bg-warning rounded-pill">None</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
+                                            <button class="btn btn-link small">...</button>
+                                            <button class="btn btn-link small text-success">...</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
