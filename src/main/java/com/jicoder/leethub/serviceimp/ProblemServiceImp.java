@@ -16,6 +16,10 @@ public class ProblemServiceImp implements ProblemService {
 
     @Override
     public int insertProblem(Problem problem) {
+        Problem res = problemMapper.selectProblemByQuestionId(problem.getQuestionId());
+        if(res != null){
+            return res.getProblem_id();
+        }
         return problemMapper.insertProblem(problem);
     }
 

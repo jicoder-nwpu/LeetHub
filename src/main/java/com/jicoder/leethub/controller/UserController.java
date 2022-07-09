@@ -6,6 +6,7 @@ import com.jicoder.leethub.pojo.Problem;
 import com.jicoder.leethub.pojo.Ranks;
 import com.jicoder.leethub.pojo.User;
 import com.jicoder.leethub.service.LeetRankService;
+import com.jicoder.leethub.service.ProToUserService;
 import com.jicoder.leethub.service.ProblemService;
 import com.jicoder.leethub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UserController {
 
     @Autowired
     private LeetRankService leetRankService;
+
+    @Autowired
+    private ProToUserService proToUserService;
 
 
     @PostMapping ("/login")
@@ -79,6 +83,8 @@ public class UserController {
         List<Integer> daily_rank_vals = leetRankService.getRecentVals(daily_ranks);
         Ranks commonRank = new Ranks(daily_rank_dates, daily_rank_vals);
         model.addAttribute("commonRank", JSON.toJSONString(commonRank));
+
+        model.addAttribute("hasDailyProblemRecord", proToUserService.hasDailyProblemRecord(problem, user));
         return "user/index";
     }
 
