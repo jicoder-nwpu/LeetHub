@@ -13,8 +13,9 @@ import java.sql.Date;
 @NoArgsConstructor
 public class LeetRank {
 
-    private static final int DailyRank = 0;
-    private static final int ContestRank = 1;
+    public static final int DailyRank = 0;
+    public static final int ContestRank = 1;
+    public static final int IndexRankNum = 30;
 
     private int rank_id;
     private int rank_val;

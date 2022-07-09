@@ -1,9 +1,11 @@
 package com.jicoder.leethub.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.jicoder.leethub.pojo.LeetRank;
 import com.jicoder.leethub.pojo.Problem;
 import com.jicoder.leethub.pojo.Ranks;
 import com.jicoder.leethub.pojo.User;
+import com.jicoder.leethub.service.LeetRankService;
 import com.jicoder.leethub.service.ProblemService;
 import com.jicoder.leethub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class UserController {
 
     @Autowired
     private ProblemService problemService;
+
+    @Autowired
+    private LeetRankService leetRankService;
+
 
     @PostMapping ("/login")
     public String login(@RequestParam("username") String username,
@@ -62,18 +68,16 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String index(Model model){
-        Date today = new Date(System.currentTimeMillis());
-        Problem problem = problemService.getDailyProblem(today);
+    public String index(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+
+        Problem problem = problemService.getDailyProblem();
         model.addAttribute("todayProblem", problem);
 
-        List<Integer> dates = new ArrayList<>();
-        List<Integer> ranks = new ArrayList<>();
-        for(int i = 0; i < 9; i++){
-            dates.add(i);
-            ranks.add(100 - i);
-        }
-        Ranks commonRank = new Ranks(dates, ranks);
+        List<LeetRank> daily_ranks = leetRankService.getRecentRank(user, LeetRank.IndexRankNum);
+        List<Date> daily_rank_dates = leetRankService.getRecentDates(daily_ranks);
+        List<Integer> daily_rank_vals = leetRankService.getRecentVals(daily_ranks);
+        Ranks commonRank = new Ranks(daily_rank_dates, daily_rank_vals);
         model.addAttribute("commonRank", JSON.toJSONString(commonRank));
         return "user/index";
     }

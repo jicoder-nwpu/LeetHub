@@ -8,6 +8,6 @@ public interface ProblemService {
 
     int insertProblem(Problem problem);
 
-    Problem getDailyProblem(Date date);
+    Problem getDailyProblem();
 
 }

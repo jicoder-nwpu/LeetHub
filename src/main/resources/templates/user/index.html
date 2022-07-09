@@ -110,15 +110,22 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-body text-secondary mb-4">
-                                    <h5 class="m-lg-3">每日一题</h5>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="my-lg-3 ms-lg-3">每日一题</h5>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <h6 class="mt-2 me-2 text-success">已完成</h6>
+                                            <span class="badge bg-primary">46</span>
+                                        </div>
+                                        <h6 type="hidden"></h6>
+                                    </div>
                                     <div class="card-footer" th:if="${todayProblem}">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class=" card-body" th:text="${todayProblem.title}"></div>
+                                        <div class="d-flex card-header justify-content-between align-items-center mx-lg-2">
+                                            <div class="card-body" th:text="${todayProblem.title}"></div>
                                             <span class="badge bg-danger rounded-pill" th:if="${todayProblem.difficulty eq 'Hard'}">Hard</span>
                                             <span class="badge bg-warning rounded-pill" th:if="${todayProblem.difficulty eq 'Medium'}">Medium</span>
                                             <span class="badge bg-success rounded-pill" th:if="${todayProblem.difficulty eq 'Easy'}">Easy</span>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
+                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1">
                                             <a type="button" class="btn btn-link small" th:href="${todayProblem.url}" target="_blank">去做题</a>
                                             <a type="button" class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</a>
                                         </div>
@@ -135,15 +142,6 @@
                                     </div>
                                 </div>
                             </div>
-<!--                            <div class="col-xl-3 col-md-6">-->
-<!--                                <div class="card bg-success text-white mb-4">-->
-<!--                                    <div class="card-body">Success Card</div>-->
-<!--                                    <div class="card-footer d-flex align-items-center justify-content-between">-->
-<!--                                        <a class="small text-white stretched-link" href="#">View Details</a>-->
-<!--                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
                         <div class="row">
                             <div class="col-xl-6">

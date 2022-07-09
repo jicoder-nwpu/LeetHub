@@ -20,8 +20,9 @@ public class ProblemServiceImp implements ProblemService {
     }
 
     @Override
-    public Problem getDailyProblem(Date date) {
-        return problemMapper.getDailyProblemByDate(date);
+    public Problem getDailyProblem() {
+        Date today = new Date(System.currentTimeMillis());
+        return problemMapper.getDailyProblemByDate(today);
     }
 
 }

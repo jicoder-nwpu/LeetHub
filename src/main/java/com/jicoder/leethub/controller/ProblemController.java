@@ -27,8 +27,7 @@ public class ProblemController {
     @ResponseBody
     @GetMapping("/today")
     public Problem getDailyProblem(){
-        Date date = new Date(System.currentTimeMillis());
-        Problem problem = problemService.getDailyProblem(date);
+        Problem problem = problemService.getDailyProblem();
         return problem;
     }
 

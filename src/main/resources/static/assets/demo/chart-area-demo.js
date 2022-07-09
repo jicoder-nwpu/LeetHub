@@ -13,7 +13,7 @@ var myLineChart = new Chart(ctx, {
   data: {
     labels: charData.dates,
     datasets: [{
-      label: "Sessions",
+      label: "rank",
       lineTension: 0.3,
       backgroundColor: "rgba(2,117,216,0.2)",
       borderColor: "rgba(2,117,216,1)",
@@ -37,14 +37,14 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 7
+          maxTicksLimit: 30
         }
       }],
       yAxes: [{
         ticks: {
-          min: 0,
-          max: 100,
-          maxTicksLimit: 5
+          min: 15000,
+          max: 20000,
+          maxTicksLimit: 100
         },
         gridLines: {
           color: "rgba(0, 0, 0, .125)",
