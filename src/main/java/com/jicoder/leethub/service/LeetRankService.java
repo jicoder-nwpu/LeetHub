@@ -10,7 +10,7 @@ public interface LeetRankService {
 
     int insertRank(LeetRank rank);
 
-    List<LeetRank> getRecentRank(User user, int len);
+    List<LeetRank> getRecentRank(User user, int type, int len);
 
     List<Date> getRecentDates(List<LeetRank> ranks);
 

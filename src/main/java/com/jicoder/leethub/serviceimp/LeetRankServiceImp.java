@@ -24,8 +24,8 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
-    public List<LeetRank> getRecentRank(User user, int len) {
-        List<LeetRank> res = leetRankMapper.getRecentRank(user, len);
+    public List<LeetRank> getRecentRank(User user, int type, int len) {
+        List<LeetRank> res = leetRankMapper.getRecentRank(user, type, len);
         Utils.reverseList(res);
         return res;
     }

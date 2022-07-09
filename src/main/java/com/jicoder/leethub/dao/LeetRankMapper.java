@@ -15,7 +15,7 @@ public interface LeetRankMapper {
             "values (#{rank_val}, #{type}, #{update_time}, #{user.user_id})")
     int insertRank(LeetRank rank);
 
-    @Select("select * from leetrank where type=" + LeetRank.DailyRank +  " order by rank_id desc limit #{len}")
-    List<LeetRank> getRecentRank(User user, int len);
+    @Select("select * from leetrank where type=#{type} and user_id=#{user.user_id} order by rank_id desc limit #{len}")
+    List<LeetRank> getRecentRank(User user, int type, int len);
 
 }

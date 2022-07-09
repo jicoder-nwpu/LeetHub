@@ -74,7 +74,7 @@ public class UserController {
         Problem problem = problemService.getDailyProblem();
         model.addAttribute("todayProblem", problem);
 
-        List<LeetRank> daily_ranks = leetRankService.getRecentRank(user, LeetRank.IndexRankNum);
+        List<LeetRank> daily_ranks = leetRankService.getRecentRank(user, LeetRank.DailyRank, LeetRank.IndexRankNum);
         List<Date> daily_rank_dates = leetRankService.getRecentDates(daily_ranks);
         List<Integer> daily_rank_vals = leetRankService.getRecentVals(daily_ranks);
         Ranks commonRank = new Ranks(daily_rank_dates, daily_rank_vals);
