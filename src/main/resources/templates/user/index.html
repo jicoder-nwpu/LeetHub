@@ -115,7 +115,7 @@
                                         <div class="d-flex justify-content-center align-items-center">
                                             <h6 class="mt-2 me-2 text-success" th:if="${hasDailyProblemRecord}">已完成</h6>
                                             <h6 class="mt-2 me-2 text-warning" th:if="not ${hasDailyProblemRecord}">未完成</h6>    
-                                            <span class="badge bg-primary">46</span>
+                                            <span class="badge bg-primary" th:text="${dailyPCount}"></span>
                                         </div>
                                         <h6 type="hidden"></h6>
                                     </div>

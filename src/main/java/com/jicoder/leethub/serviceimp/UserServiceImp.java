@@ -22,4 +22,18 @@ public class UserServiceImp implements UserService {
         User user = userMapper.getUserByNameAnsPass(username, password);
         return user;
     }
+
+    @Override
+    public int updateDailyPCount(int user_id, int count) {
+        return userMapper.updateDailyPCount(user_id, count);
+    }
+
+    @Override
+    public int selectDailyPCount(int user_id) {
+        Integer res = userMapper.selectDailyPCount(user_id);
+        if(res == null){
+            return 1024;
+        }
+        return res;
+    }
 }

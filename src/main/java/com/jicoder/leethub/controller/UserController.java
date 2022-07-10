@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -85,7 +86,15 @@ public class UserController {
         model.addAttribute("commonRank", JSON.toJSONString(commonRank));
 
         model.addAttribute("hasDailyProblemRecord", proToUserService.hasDailyProblemRecord(problem, user));
+
+        model.addAttribute("dailyPCount", userService.selectDailyPCount(user.getUser_id()));
         return "user/index";
+    }
+
+    @ResponseBody
+    @PostMapping("/update/dailypcount")
+    public int updateDailyPCount(@RequestBody Map params){
+        return userService.updateDailyPCount((int)params.get("user_id"), (int)params.get("count"));
     }
 
     @ResponseBody

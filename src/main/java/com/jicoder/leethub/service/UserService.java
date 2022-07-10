@@ -8,4 +8,8 @@ public interface UserService {
 
     User login(String username, String password);
 
+    int updateDailyPCount(int user_id, int count);
+
+    int selectDailyPCount(int user_id);
+
 }
