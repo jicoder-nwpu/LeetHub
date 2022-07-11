@@ -2,6 +2,8 @@ package com.jicoder.leethub.service;
 
 import com.jicoder.leethub.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User getUser(int user_id);
@@ -11,5 +13,7 @@ public interface UserService {
     int updateDailyPCount(int user_id, int count);
 
     int selectDailyPCount(int user_id);
+
+    List<String> getRankTableHeads();
 
 }

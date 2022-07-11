@@ -40,11 +40,25 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
+    public List<LeetRank> getAllRank(int type) {
+        return leetRankMapper.selectAllRank(type);
+    }
+
+    @Override
     public List<Integer> getRecentVals(List<LeetRank> ranks) {
         List<Integer> vals = new ArrayList<>();
         for (int i = 0; i < ranks.size(); i++){
             vals.add(ranks.get(i).getRank_val());
         }
         return vals;
+    }
+
+    @Override
+    public int selectLatestRank(int type) {
+        Integer res = leetRankMapper.selectLatestRank(type);
+        if(res == null){
+            return -1;
+        }
+        return res;
     }
 }

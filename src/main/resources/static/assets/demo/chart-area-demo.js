@@ -2,9 +2,7 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-console.log(8898989)
 let charData = JSON.parse(document.getElementById("areaChartData").value);
-console.log(charData);
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");

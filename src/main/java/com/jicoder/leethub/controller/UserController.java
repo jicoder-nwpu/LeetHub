@@ -97,6 +97,17 @@ public class UserController {
         return userService.updateDailyPCount((int)params.get("user_id"), (int)params.get("count"));
     }
 
+
+    @RequestMapping("/rank/{type}")
+    public String rank(@PathVariable int type, Model model){
+        List<String> heads = userService.getRankTableHeads();
+        model.addAttribute("heads", heads);
+
+        List<LeetRank> ranks = leetRankService.getAllRank(type);
+        model.addAttribute("ranks", ranks);
+        return "user/rank";
+    }
+
     @ResponseBody
     @GetMapping("/info")
     public User getUserInfo(HttpSession session){

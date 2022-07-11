@@ -18,4 +18,12 @@ public interface LeetRankMapper {
     @Select("select * from leetrank where type=#{type} and user_id=#{user.user_id} order by rank_id desc limit #{len}")
     List<LeetRank> getRecentRank(User user, int type, int len);
 
+
+    @Select("select rank_val from leetrank where type=#{type} order by rank_id desc limit 1")
+    Integer selectLatestRank(int type);
+
+
+    @Select("select * from leetrank where type=#{type} order by rank_id desc")
+    List<LeetRank> selectAllRank(int type);
+
 }

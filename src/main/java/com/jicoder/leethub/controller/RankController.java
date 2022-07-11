@@ -4,10 +4,7 @@ import com.jicoder.leethub.pojo.LeetRank;
 import com.jicoder.leethub.service.LeetRankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/rank")
@@ -20,6 +17,12 @@ public class RankController {
     @PostMapping("/insert")
     public int insertRank(@RequestBody LeetRank rank){
         return leetRankService.insertRank(rank);
+    }
+
+    @ResponseBody
+    @GetMapping("/latest/{type}")
+    public int selectLatestRank(@PathVariable int type){
+        return leetRankService.selectLatestRank(type);
     }
 
 }

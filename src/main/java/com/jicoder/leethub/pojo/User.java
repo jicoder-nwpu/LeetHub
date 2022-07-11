@@ -15,5 +15,6 @@ public class User {
     private String username;
     private String password;
     private Timestamp signupTime;
+    private int dailyp_count;
 
 }

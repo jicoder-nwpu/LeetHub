@@ -14,6 +14,10 @@ public interface LeetRankService {
 
     List<Date> getRecentDates(List<LeetRank> ranks);
 
+    List<LeetRank> getAllRank(int type);
+
     List<Integer> getRecentVals(List<LeetRank> ranks);
+
+    int selectLatestRank(int type);
 
 }

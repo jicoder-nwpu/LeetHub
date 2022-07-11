@@ -6,6 +6,9 @@ import com.jicoder.leethub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImp implements UserService {
 
@@ -35,5 +38,18 @@ public class UserServiceImp implements UserService {
             return 1024;
         }
         return res;
+    }
+
+    @Override
+    public List<String> getRankTableHeads() {
+        List<String> heads = new ArrayList<>();
+        heads.add("Date");
+        heads.add("Type");
+        heads.add("Rank");
+        heads.add("Gap");
+        heads.add("Easy");
+        heads.add("Medium");
+        heads.add("Hard");
+        return heads;
     }
 }
