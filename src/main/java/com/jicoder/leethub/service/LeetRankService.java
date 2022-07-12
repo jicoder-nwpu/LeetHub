@@ -3,7 +3,6 @@ package com.jicoder.leethub.service;
 import com.jicoder.leethub.pojo.LeetRank;
 import com.jicoder.leethub.pojo.User;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface LeetRankService {
@@ -12,12 +11,16 @@ public interface LeetRankService {
 
     List<LeetRank> getRecentRank(User user, int type, int len);
 
-    List<Date> getRecentDates(List<LeetRank> ranks);
+    List<String> getRecentDates(List<LeetRank> ranks);
 
-    List<LeetRank> getAllRank(int type);
+    List<LeetRank> getAllRankByType(int user_id, int type);
+
+    List<LeetRank> getAllRank(int user_id);
 
     List<Integer> getRecentVals(List<LeetRank> ranks);
 
-    int selectLatestRank(int type);
+    int selectLatestRank(int user_id, int type);
+
+    List<String> getRankTableHeads();
 
 }

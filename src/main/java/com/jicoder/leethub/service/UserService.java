@@ -14,6 +14,4 @@ public interface UserService {
 
     int selectDailyPCount(int user_id);
 
-    List<String> getRankTableHeads();
-
 }

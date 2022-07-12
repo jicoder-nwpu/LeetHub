@@ -13,7 +13,7 @@ public interface ProblemMapper {
 
     @Insert("insert into problem (title, questionId, type, difficulty, url, content, date)" +
             " values (#{title}, #{questionId}, #{type}, #{difficulty}, #{url}, #{content}, #{date})")
-    @Options(keyProperty = "problem_id")
+    @Options(useGeneratedKeys = true, keyProperty = "problem_id", keyColumn = "problem_id")
     int insertProblem(Problem problem);
 
     @Select("select * from problem where questionId=#{questionId}")

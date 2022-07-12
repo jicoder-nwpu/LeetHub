@@ -10,9 +10,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ranks {
+public class LineChartData {
 
-    private List<Date> dates;
-    private List<Integer> ranks;
+    private List<String> labels;
+    private List<Integer> vals;
 
 }

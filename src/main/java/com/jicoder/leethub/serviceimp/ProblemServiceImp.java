@@ -20,7 +20,8 @@ public class ProblemServiceImp implements ProblemService {
         if(res != null){
             return res.getProblem_id();
         }
-        return problemMapper.insertProblem(problem);
+        int status = problemMapper.insertProblem(problem);
+        return problem.getProblem_id();
     }
 
     @Override

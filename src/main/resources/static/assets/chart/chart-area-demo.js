@@ -9,7 +9,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: charData.dates,
+    labels: charData.labels,
     datasets: [{
       label: "rank",
       lineTension: 0.3,
@@ -22,7 +22,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(2,117,216,1)",
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: charData.ranks,
+      data: charData.vals,
     }],
   },
   options: {

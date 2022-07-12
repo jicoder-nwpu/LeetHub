@@ -8,7 +8,6 @@ import com.jicoder.leethub.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,17 +30,22 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
-    public List<Date> getRecentDates(List<LeetRank> ranks) {
-        List<Date> dates = new ArrayList<>();
+    public List<String> getRecentDates(List<LeetRank> ranks) {
+        List<String> dates = new ArrayList<>();
         for(int i = 0; i < ranks.size(); i++){
-            dates.add(ranks.get(i).getUpdate_time());
+            dates.add(ranks.get(i).getUpdate_time().toString());
         }
         return dates;
     }
 
     @Override
-    public List<LeetRank> getAllRank(int type) {
-        return leetRankMapper.selectAllRank(type);
+    public List<LeetRank> getAllRankByType(int user_id, int type) {
+        return leetRankMapper.selectAllRankByType(user_id, type);
+    }
+
+    @Override
+    public List<LeetRank> getAllRank(int user_id) {
+        return leetRankMapper.selectAllRank(user_id);
     }
 
     @Override
@@ -54,11 +58,24 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
-    public int selectLatestRank(int type) {
-        Integer res = leetRankMapper.selectLatestRank(type);
+    public int selectLatestRank(int user_id, int type) {
+        Integer res = leetRankMapper.selectLatestRank(user_id, type);
         if(res == null){
             return -1;
         }
         return res;
+    }
+
+    @Override
+    public List<String> getRankTableHeads() {
+        List<String> heads = new ArrayList<>();
+        heads.add("Date");
+        heads.add("Type");
+        heads.add("Rank");
+        heads.add("Gap");
+        heads.add("Easy");
+        heads.add("Medium");
+        heads.add("Hard");
+        return heads;
     }
 }

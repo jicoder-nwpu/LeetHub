@@ -40,16 +40,4 @@ public class UserServiceImp implements UserService {
         return res;
     }
 
-    @Override
-    public List<String> getRankTableHeads() {
-        List<String> heads = new ArrayList<>();
-        heads.add("Date");
-        heads.add("Type");
-        heads.add("Rank");
-        heads.add("Gap");
-        heads.add("Easy");
-        heads.add("Medium");
-        heads.add("Hard");
-        return heads;
-    }
 }
