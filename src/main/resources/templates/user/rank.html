@@ -33,11 +33,10 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody th:if="${rankType} eq 0">
                                         <tr th:each="rank:${ranks}">
                                             <td th:text="${rank.update_time}"></td>
                                             <td th:if="${rank.type} eq 0">日更</td>
-                                            <td th:if="${rank.type} eq 1">竞赛</td>
                                             <td th:text="${rank.rank_val}"></td>
                                             <td th:text="${rank.gap}" th:if="${rank.gap} eq 0"></td>
                                             <td th:text="${rank.gap}" class="table-success" th:if="${rank.gap} gt 0"></td>
@@ -46,6 +45,31 @@
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
+                                    </tbody>
+                                    <tbody th:if="${rankType} eq 1">
+                                        <tr th:each="rank:${ranks}">
+                                            <td th:text="${rank.update_time}"></td>
+                                            <td th:if="${rank.type} eq 1">竞赛</td>
+                                            <td th:text="${rank.description}"></td>
+                                            <td th:text="${rank.contest_rank}"></td>
+                                            <td th:text="${rank.score}"></td>
+                                            <td th:text="${rank.rank_val}"></td>
+                                            <td th:text="${rank.gap}" th:if="${rank.gap} eq 0"></td>
+                                            <td th:text="${rank.gap}" class="table-success" th:if="${rank.gap} gt 0"></td>
+                                            <td th:text="${rank.gap}" class="table-warning" th:if="${rank.gap} lt 0"></td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody th:if="${rankType} eq 2">
+                                    <tr th:each="rank:${ranks}">
+                                        <td th:text="${rank.update_time}"></td>
+                                        <td th:if="${rank.type} eq 1">竞赛</td>
+                                        <td th:if="${rank.type} eq 0">日更</td>
+                                        <td th:text="${rank.description}"></td>
+                                        <td th:text="${rank.rank_val}"></td>
+                                        <td th:text="${rank.gap}" th:if="${rank.gap} eq 0"><s/td>
+                                        <td th:text="${rank.gap}" class="table-success" th:if="${rank.gap} gt 0"></td>
+                                        <td th:text="${rank.gap}" class="table-warning" th:if="${rank.gap} lt 0"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

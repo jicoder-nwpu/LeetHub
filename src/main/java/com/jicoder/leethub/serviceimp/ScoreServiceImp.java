@@ -3,6 +3,7 @@ package com.jicoder.leethub.serviceimp;
 import com.jicoder.leethub.dao.ScoreMapper;
 import com.jicoder.leethub.pojo.Score;
 import com.jicoder.leethub.service.ScoreService;
+import com.jicoder.leethub.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,9 @@ public class ScoreServiceImp implements ScoreService {
 
     @Override
     public List<Score> getRecentScore(int user_id) {
-        return scoreMapper.selectRecentScore(user_id);
+        List<Score> scores = scoreMapper.selectRecentScore(user_id);
+        Utils.reverseList(scores);
+        return scores;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.jicoder.leethub.serviceimp;
 
 import com.jicoder.leethub.dao.LeetRankMapper;
 import com.jicoder.leethub.pojo.LeetRank;
+import com.jicoder.leethub.pojo.LineChartData;
 import com.jicoder.leethub.pojo.User;
 import com.jicoder.leethub.service.LeetRankService;
 import com.jicoder.leethub.utils.Utils;
@@ -66,8 +67,17 @@ public class LeetRankServiceImp implements LeetRankService {
         return res;
     }
 
+
+    public LineChartData getCharData(User user, int type, int len){
+        List<LeetRank> ranks = getRecentRank(user, type, len);
+        List<String> rank_dates = getRecentDates(ranks);
+        List<Integer> rank_vals = getRecentVals(ranks);
+        LineChartData rankData = new LineChartData(rank_dates, rank_vals);
+        return rankData;
+    }
+
     @Override
-    public List<String> getRankTableHeads() {
+    public List<String> getDailyRankTableHeads() {
         List<String> heads = new ArrayList<>();
         heads.add("Date");
         heads.add("Type");
@@ -76,6 +86,30 @@ public class LeetRankServiceImp implements LeetRankService {
         heads.add("Easy");
         heads.add("Medium");
         heads.add("Hard");
+        return heads;
+    }
+
+    @Override
+    public List<String> getContestRankTableHeads() {
+        List<String> heads = new ArrayList<>();
+        heads.add("Date");
+        heads.add("Type");
+        heads.add("Description");
+        heads.add("ContestRank");
+        heads.add("Score");
+        heads.add("Rank");
+        heads.add("Gap");
+        return heads;
+    }
+
+    @Override
+    public List<String> getAllRankTableHeads() {
+        List<String> heads = new ArrayList<>();
+        heads.add("Date");
+        heads.add("Type");
+        heads.add("Description");
+        heads.add("Rank");
+        heads.add("Gap");
         return heads;
     }
 }

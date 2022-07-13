@@ -21,6 +21,9 @@ public class LeetRank {
     private int rank_val;
     private byte type;
     private int gap;
+    private String description;
+    private int contest_rank;
+    private int score;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")

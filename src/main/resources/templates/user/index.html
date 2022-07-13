@@ -17,57 +17,77 @@
             <aside th:replace="aside.html"></aside>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="d-flex flex-column container-fluid px-4" style="height: 100%">
                         <h1 class="mt-4 mb-4">Analysis Panel</h1>
-                        <div class="row">
-                            <div class="col-xl-3">
-                                <div class="card bg-body text-secondary mb-4">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="my-lg-3 ms-lg-3">每日一题</h5>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <h6 class="mt-2 me-2 text-success" th:if="${hasDailyProblemRecord}">已完成</h6>
-                                            <h6 class="mt-2 me-2 text-warning" th:if="not ${hasDailyProblemRecord}">未完成</h6>    
-                                            <span class="badge bg-primary" th:text="${dailyPCount}"></span>
-                                        </div>
-                                        <h6 type="hidden"></h6>
-                                    </div>
-                                    <div class="card-footer" th:if="${todayProblem}">
-                                        <div class="d-flex card-header justify-content-between align-items-center mx-lg-2 mt-2">
-                                            <div class="card-body" th:text="${todayProblem.title}"></div>
-                                            <span class="badge bg-danger rounded-pill" th:if="${todayProblem.difficulty eq 'Hard'}">Hard</span>
-                                            <span class="badge bg-warning rounded-pill" th:if="${todayProblem.difficulty eq 'Medium'}">Medium</span>
-                                            <span class="badge bg-success rounded-pill" th:if="${todayProblem.difficulty eq 'Easy'}">Easy</span>
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-2 mb-2">
-                                            <a type="button" class="btn btn-link small" th:href="${todayProblem.url}" target="_blank">去做题</a>
-                                            <a type="button" class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</a>
+                        <div style="flex: 1 0 auto" class="row">
+                            <div class="col-xl-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="my-lg-3 ms-lg-3">每日一题</h5>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <h6 class="mt-2 me-2 text-success" th:if="${hasDailyProblemRecord}">已完成</h6>
+                                                <h6 class="mt-2 me-2 text-warning" th:if="not ${hasDailyProblemRecord}">未完成</h6>
+                                                <span class="badge bg-primary" th:text="${dailyPCount}"></span>
+                                            </div>
+                                            <h5 type="hidden" class="my-lg-3 ms-lg-3"></h5>
                                         </div>
                                     </div>
-                                    <div class="card-footer" th:if="${#strings.isEmpty(todayProblem)}">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class=" card-body">努力爬取中...</div>
-                                            <span class="badge bg-warning rounded-pill">None</span>
+                                    <div class="card-body">
+                                        <div th:if="${todayProblem}">
+                                            <div class="d-flex justify-content-around align-items-center mx-lg-2 mt-2">
+                                                <div class="card-body" th:text="${todayProblem.title}"></div>
+                                                <span class="badge bg-danger rounded-pill" th:if="${todayProblem.difficulty eq 'Hard'}">Hard</span>
+                                                <span class="badge bg-warning rounded-pill" th:if="${todayProblem.difficulty eq 'Medium'}">Medium</span>
+                                                <span class="badge bg-success rounded-pill" th:if="${todayProblem.difficulty eq 'Easy'}">Easy</span>
+                                            </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
-                                            <button class="btn btn-link small">...</button>
-                                            <button class="btn btn-link small text-success">...</button>
+                                        <div th:if="${#strings.isEmpty(todayProblem)}">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class=" card-body">努力爬取中...</div>
+                                                <span class="badge bg-warning rounded-pill">None</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div th:if="${todayProblem}">
+                                            <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-2 mb-2">
+                                                <a type="button" class="btn btn-link small" th:href="${todayProblem.url}" target="_blank">去做题</a>
+                                                <a type="button" class="btn btn-link small text-success" th:href="${todayProblem.url}">去总结</a>
+                                            </div>
+                                        </div>
+                                        <div th:if="${#strings.isEmpty(todayProblem)}">
+                                            <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-1 border-top">
+                                                <button class="btn btn-link small">...</button>
+                                                <button class="btn btn-link small text-success">...</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3">
+                            <div class="col-xl-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-pie me-1"></i>
+                                        本日做题情况
+                                    </div>
+                                    <div class="card-body"><canvas id="dailySummay"></canvas></div>
+                                    <input type="hidden" id="dailySummayData" th:value="${commonRank}">
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
                                 <div class="card mb-4" >
                                     <div class="card-header" style="position: relative">
                                         <a type="hidden" th:href="@{/score}" class="stretched-link"></a>
                                         <i class="fas fa-chart-area me-1"></i>
                                         积分增长曲线
                                     </div>
-                                    <div class="card-body"><canvas id="scoreChart" width="100%" height="38"></canvas></div>
+                                    <div class="card-body"><canvas id="scoreChart"></canvas></div>
                                     <input type="hidden" id="scoreChartData" th:value="${scoreData}">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div sytle="flex: 2 0 auto" class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4" >
                                     <div class="card-header" style="position: relative">
@@ -81,11 +101,13 @@
                             </div>
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header">
+                                    <div class="card-header" style="position: relative">
+                                        <a type="hidden" th:href="@{/rank/1}" class="stretched-link"></a>
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+                                        国内竞赛排名
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="contestRank" width="100%" height="40"></canvas></div>
+                                    <input type="hidden" id="contestRankData" th:value="${contestRankData}">
                                 </div>
                             </div>
                         </div>
@@ -97,9 +119,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript" th:src="@{/assets/chart/chart-area-demo.js}"></script>
+        <script type="text/javascript" th:src="@{/assets/chart/dailyrank-line.js}"></script>
         <script type="text/javascript" th:src="@{/assets/chart/score-chart.js}"></script>
-        <script src="/assets/chart/chart-bar-demo.js"></script>
+        <script type="text/javascript" th:src="@{/assets/chart/dailySummary-pie.js}"></script>
+        <script type="text/javascript" th:src="@{/assets/chart/contestrank-line.js}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="/js/datatables-simple-demo.js"></script>
     </body>

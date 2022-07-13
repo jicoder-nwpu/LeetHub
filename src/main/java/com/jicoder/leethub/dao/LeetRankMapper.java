@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 public interface LeetRankMapper {
 
-    @Insert("insert into leetrank (rank_val, type, update_time, user_id, gap) " +
-            "values (#{rank_val}, #{type}, #{update_time}, #{user.user_id}, #{gap})")
+    @Insert("insert into leetrank (rank_val, type, update_time, user_id, gap, description, contest_rank, score) " +
+            "values (#{rank_val}, #{type}, #{update_time}, #{user.user_id}, #{gap}, #{description}, #{contest_rank}, #{score})")
     int insertRank(LeetRank rank);
 
     @Select("select * from leetrank where type=#{type} and user_id=#{user.user_id} order by rank_id desc limit #{len}")

@@ -33,10 +33,14 @@ public class RankController {
 
     @RequestMapping("/{type}")
     public String rank(@PathVariable int type, Model model, HttpSession session){
+        if(type == 0){
+            model.addAttribute("rankType", 0);
+            model.addAttribute("heads", leetRankService.getDailyRankTableHeads());
+        }else if(type == 1){
+            model.addAttribute("rankType", 1);
+            model.addAttribute("heads", leetRankService.getContestRankTableHeads());
+        }
         User user = (User) session.getAttribute("user");
-        List<String> heads = leetRankService.getRankTableHeads();
-        model.addAttribute("heads", heads);
-
         List<LeetRank> ranks = leetRankService.getAllRankByType(user.getUser_id(), type);
         model.addAttribute("ranks", ranks);
         return "user/rank";
@@ -46,7 +50,8 @@ public class RankController {
     public String allRank(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         model.addAttribute("ranks", leetRankService.getAllRank(user.getUser_id()));
-        model.addAttribute("heads", leetRankService.getRankTableHeads());
+        model.addAttribute("heads", leetRankService.getAllRankTableHeads());
+        model.addAttribute("rankType", 2);
         return "user/rank";
     }
 

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -75,11 +74,9 @@ public class UserController {
         Problem problem = problemService.getDailyProblem();
         model.addAttribute("todayProblem", problem);
 
-        List<LeetRank> daily_ranks = leetRankService.getRecentRank(user, LeetRank.DailyRank, LeetRank.IndexRankNum);
-        List<String> daily_rank_dates = leetRankService.getRecentDates(daily_ranks);
-        List<Integer> daily_rank_vals = leetRankService.getRecentVals(daily_ranks);
-        LineChartData commonRank = new LineChartData(daily_rank_dates, daily_rank_vals);
-        model.addAttribute("commonRank", JSON.toJSONString(commonRank));
+        model.addAttribute("commonRank", JSON.toJSONString(leetRankService.getCharData(user, LeetRank.DailyRank, LeetRank.IndexRankNum)));
+
+        model.addAttribute("contestRankData", JSON.toJSONString(leetRankService.getCharData(user, LeetRank.ContestRank, LeetRank.IndexRankNum)));
 
         List<Score> scores = scoreService.getRecentScore(user.getUser_id());
         List<Integer> score_vals = scoreService.getScoreVals(scores);
@@ -98,6 +95,12 @@ public class UserController {
     public int updateDailyPCount(@RequestBody Map params){
         return userService.updateDailyPCount((int)params.get("user_id"), (int)params.get("count"));
     }
+
+    @GetMapping("/profile")
+    public String profile(){
+        return "user/setting";
+    }
+
 
     @ResponseBody
     @GetMapping("/info")
