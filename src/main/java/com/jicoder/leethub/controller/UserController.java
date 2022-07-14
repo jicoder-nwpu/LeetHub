@@ -87,6 +87,8 @@ public class UserController {
         model.addAttribute("hasDailyProblemRecord", proToUserService.hasDailyProblemRecord(problem, user));
 
         model.addAttribute("dailyPCount", userService.selectDailyPCount(user.getUser_id()));
+
+        model.addAttribute("dailySummayData", JSON.toJSONString(leetRankService.getTodaySummay(user.getUser_id())));
         return "user/index";
     }
 

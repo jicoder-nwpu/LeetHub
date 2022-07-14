@@ -9,6 +9,8 @@ import com.jicoder.leethub.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +105,30 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
+    public LineChartData getTodaySummay(int user_id) {
+        List<String> labels = new ArrayList<>();
+        labels.add("Easy");
+        labels.add("Medium");
+        labels.add("Hard");
+        Date update = new Date(new java.util.Date().getTime());
+        Integer easy = leetRankMapper.selectEasyLeetRank(update, user_id);
+        if(easy == null){
+            List<Integer> data = new ArrayList<>();
+            data.add(0);
+            data.add(0);
+            data.add(0);
+            return new LineChartData(labels, data);
+        }
+        int medium = leetRankMapper.selectMediumLeetRank(update, user_id);
+        int hard = leetRankMapper.selectHardLeetRank(update, user_id);
+        List<Integer> data = new ArrayList<>();
+        data.add(easy);
+        data.add(medium);
+        data.add(hard);
+        return new LineChartData(labels, data);
+    }
+
+    @Override
     public List<String> getAllRankTableHeads() {
         List<String> heads = new ArrayList<>();
         heads.add("Date");
@@ -111,5 +137,35 @@ public class LeetRankServiceImp implements LeetRankService {
         heads.add("Rank");
         heads.add("Gap");
         return heads;
+    }
+
+    @Override
+    public int selectEasyCount(Date update_time, int user_id) {
+        return leetRankMapper.selectEasyLeetRank(update_time, user_id);
+    }
+
+    @Override
+    public int selectMediumCount(Date update_time, int user_id) {
+        return leetRankMapper.selectMediumLeetRank(update_time, user_id);
+    }
+
+    @Override
+    public int selectHardCount(Date update_time, int user_id) {
+        return leetRankMapper.selectHardLeetRank(update_time, user_id);
+    }
+
+    @Override
+    public int updateEasyCount(int easy_count, Date update_time, int user_id) {
+        return leetRankMapper.updateEasyLeetRank(easy_count, update_time, user_id);
+    }
+
+    @Override
+    public int updateMediumCount(int medium_count, Date update_time, int user_id) {
+        return leetRankMapper.updateMediumLeetRank(medium_count, update_time, user_id);
+    }
+
+    @Override
+    public int updateHardCount(int hard_count, Date update_time, int user_id) {
+        return leetRankMapper.updateHardLeetRank(hard_count, update_time, user_id);
     }
 }

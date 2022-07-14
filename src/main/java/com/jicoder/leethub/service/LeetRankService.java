@@ -4,6 +4,7 @@ import com.jicoder.leethub.pojo.LeetRank;
 import com.jicoder.leethub.pojo.LineChartData;
 import com.jicoder.leethub.pojo.User;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface LeetRankService {
@@ -28,6 +29,19 @@ public interface LeetRankService {
 
     List<String> getContestRankTableHeads();
 
+    LineChartData getTodaySummay(int user_id);
+
     List<String> getAllRankTableHeads();
 
+    int selectEasyCount(Date update_time, int user_id);
+
+    int selectMediumCount(Date update_time, int user_id);
+
+    int selectHardCount(Date update_time, int user_id);
+
+    int updateEasyCount(int easy_count, Date update_time, int user_id);
+
+    int updateMediumCount(int easy_count, Date update_time, int user_id);
+
+    int updateHardCount(int easy_count, Date update_time, int user_id);
 }
