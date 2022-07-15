@@ -8,4 +8,6 @@ public interface ProblemService {
 
     Problem getDailyProblem();
 
+    Problem getProblemById(int id);
+
 }

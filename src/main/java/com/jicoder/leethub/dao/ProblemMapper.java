@@ -19,6 +19,9 @@ public interface ProblemMapper {
     @Select("select * from problem where questionId=#{questionId}")
     Problem selectProblemByQuestionId(String questionId);
 
+    @Select("select * from problem where problem_id=#{id}")
+    Problem selectProblemById(int id);
+
     @Select("select * from problem where type=" + Problem.DAILYPROBLEM + " and date=#{date}")
     Problem getDailyProblemByDate(Date date);
 

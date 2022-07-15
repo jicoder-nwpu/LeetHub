@@ -30,4 +30,9 @@ public class ProblemServiceImp implements ProblemService {
         return problemMapper.getDailyProblemByDate(today);
     }
 
+    @Override
+    public Problem getProblemById(int id) {
+        return problemMapper.selectProblemById(id);
+    }
+
 }
