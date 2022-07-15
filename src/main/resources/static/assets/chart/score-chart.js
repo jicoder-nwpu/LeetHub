@@ -3,6 +3,8 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 let scoreChartData = JSON.parse(document.getElementById("scoreChartData").value);
+var max = Math.max.apply(null, scoreChartData.vals);
+var min = Math.min.apply(null, scoreChartData.vals);
 
 // Area Chart Example
 var scorectx = document.getElementById("scoreChart");
@@ -40,8 +42,8 @@ var scorechart = new Chart(scorectx, {
             }],
             yAxes: [{
                 ticks: {
-                    min: 5650,
-                    max: 5700,
+                    min: min - 10,
+                    max: max + 10,
                     maxTicksLimit: 100
                 },
                 gridLines: {

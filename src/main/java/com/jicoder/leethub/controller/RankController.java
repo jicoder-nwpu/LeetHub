@@ -59,6 +59,15 @@ public class RankController {
         return "user/rank";
     }
 
+    @RequestMapping("/daily")
+    public String dailySummary(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("ranks", leetRankService.getAllRankByType(user.getUser_id(), LeetRank.DailyRank));
+        model.addAttribute("heads", leetRankService.geDailySummaryRankTableHeads());
+        model.addAttribute("rankType", 3);
+        return "user/rank";
+    }
+
     @ResponseBody
     @PostMapping ("/count")
     public int getRankCount(@RequestBody Map params, HttpSession session){

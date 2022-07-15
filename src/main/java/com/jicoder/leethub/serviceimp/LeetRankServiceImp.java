@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,16 +110,9 @@ public class LeetRankServiceImp implements LeetRankService {
         labels.add("Medium");
         labels.add("Hard");
         Date update = new Date(new java.util.Date().getTime());
-        Integer easy = leetRankMapper.selectEasyLeetRank(update, user_id);
-        if(easy == null){
-            List<Integer> data = new ArrayList<>();
-            data.add(0);
-            data.add(0);
-            data.add(0);
-            return new LineChartData(labels, data);
-        }
-        int medium = leetRankMapper.selectMediumLeetRank(update, user_id);
-        int hard = leetRankMapper.selectHardLeetRank(update, user_id);
+        int easy = selectEasyCount(update, user_id);
+        int medium = selectMediumCount(update, user_id);
+        int hard = selectHardCount(update, user_id);
         List<Integer> data = new ArrayList<>();
         data.add(easy);
         data.add(medium);
@@ -140,18 +132,31 @@ public class LeetRankServiceImp implements LeetRankService {
     }
 
     @Override
+    public List<String> geDailySummaryRankTableHeads() {
+        List<String> heads = new ArrayList<>();
+        heads.add("Date");
+        heads.add("Easy");
+        heads.add("Medium");
+        heads.add("Hard");
+        return heads;
+    }
+
+    @Override
     public int selectEasyCount(Date update_time, int user_id) {
-        return leetRankMapper.selectEasyLeetRank(update_time, user_id);
+        Integer res = leetRankMapper.selectEasyLeetRank(update_time, user_id);
+        return res == null ? 0 : res;
     }
 
     @Override
     public int selectMediumCount(Date update_time, int user_id) {
-        return leetRankMapper.selectMediumLeetRank(update_time, user_id);
+        Integer res = leetRankMapper.selectMediumLeetRank(update_time, user_id);
+        return res == null ? 0 : res;
     }
 
     @Override
     public int selectHardCount(Date update_time, int user_id) {
-        return leetRankMapper.selectHardLeetRank(update_time, user_id);
+        Integer res = leetRankMapper.selectHardLeetRank(update_time, user_id);
+        return res == null ? 0 : res;
     }
 
     @Override

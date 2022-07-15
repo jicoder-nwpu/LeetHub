@@ -33,6 +33,8 @@ public interface LeetRankService {
 
     List<String> getAllRankTableHeads();
 
+    List<String> geDailySummaryRankTableHeads();
+
     int selectEasyCount(Date update_time, int user_id);
 
     int selectMediumCount(Date update_time, int user_id);

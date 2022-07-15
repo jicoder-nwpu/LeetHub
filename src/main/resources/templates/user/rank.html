@@ -71,6 +71,14 @@
                                         <td th:text="${rank.gap}" class="table-warning" th:if="${rank.gap} lt 0"></td>
                                     </tr>
                                     </tbody>
+                                    <tbody th:if="${rankType} eq 3">
+                                    <tr th:each="rank:${ranks}">
+                                        <td th:text="${rank.update_time}"></td>
+                                        <td th:text="${rank.easy_count}"></td>
+                                        <td th:text="${rank.medium_count}"></td>
+                                        <td th:text="${rank.hard_count}"></td>
+                                    </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
