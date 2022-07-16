@@ -15,11 +15,16 @@
       <!-- Navbar Brand-->
       <div class="navbar-brand ps-3" href="/user">Start LeetHub</div>
     </nav>
-    <div class="d-flex mt-2">
+    <div class="d-flex mt-1">
       <div class="col-xl-5 mt-4 mb-4 ms-xl-1">
         <div class="card">
           <div class="card-header">
-            <h5 class="mt-2" th:text="${problem.title}"></h5>
+            <div class="d-flex justify-content-between">
+              <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
+              <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
+              <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
+              <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+            </div>
           </div>
           <div class="card-body">
             <div th:utext="${problem.content}"></div>

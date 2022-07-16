@@ -53,7 +53,7 @@
                                         <div th:if="${todayProblem}">
                                             <div class="d-flex justify-content-between align-items-center mx-lg-2 mt-2 mb-2">
                                                 <a type="button" class="btn btn-link small" th:href="${todayProblem.url}" target="_blank">去做题</a>
-                                                <a type="button" class="btn btn-link small text-success" th:href="@{/editor}">去总结</a>
+                                                <a type="button" class="btn btn-link small text-success" th:href="@{'/editor/'  + ${todayProblem.problem_id}}">去总结</a>
                                             </div>
                                         </div>
                                         <div th:if="${#strings.isEmpty(todayProblem)}">
@@ -67,7 +67,8 @@
                             </div>
                             <div class="col-xl-4">
                                 <div class="card mb-4">
-                                    <div class="card-header">
+                                    <div class="card-header" style="position: relative">
+                                        <a type="hidden" th:href="@{/rank/daily}" class="stretched-link"></a>
                                         <i class="fas fa-chart-pie me-1"></i>
                                         本日做题情况
                                     </div>
