@@ -29,6 +29,9 @@ public class HelloController {
     @GetMapping("editor/{problem_id}")
     public String editor(@PathVariable int problem_id, Model model){
         Problem res = problemService.getProblemById(problem_id);
+        if(res == null){
+            return "error/404";
+        }
         model.addAttribute("problem", res);
         return "editor";
     }
