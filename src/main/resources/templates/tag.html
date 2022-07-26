@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div th:if="${tags.size() gt 0}">
+                        <div th:if="${tags.size()} gt 0">
                             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                                 <div th:each="tag:${tags}">
                                     <div class="col mb-5">
@@ -123,7 +123,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <h4 th:if="${tags.size() eq 0}">点击右上角按钮创建Tag</h4>
+                        </div>
+                        <div th:if="${tags.size()} le 0">
+                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                                <h4>点击右上角按钮创建Tag</h4>
+                            </div>
                         </div>
                     </div>
                 </main>
