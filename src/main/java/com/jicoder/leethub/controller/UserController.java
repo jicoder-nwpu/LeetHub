@@ -110,10 +110,4 @@ public class UserController {
         return (User) session.getAttribute("user");
     }
 
-
-    @GetMapping("/labels")
-    public String label(){
-        return "label";
-    }
-
 }
