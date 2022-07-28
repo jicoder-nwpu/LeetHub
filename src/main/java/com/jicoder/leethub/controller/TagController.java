@@ -23,6 +23,7 @@ public class TagController {
     public String label(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
         model.addAttribute("tags", tagService.getAllTagsByUserId(user.getUser_id()));
+        model.addAttribute("countSum", tagService.getCountSum(user.getUser_id()));
         return "tag";
     }
 
@@ -45,6 +46,23 @@ public class TagController {
     public String deleteById(@PathVariable int tag_id){
         int res = tagService.deleteById(tag_id);
         return "redirect:/tag";
+    }
+
+
+    @ResponseBody
+    @PostMapping("/update_name")
+    public ResponseResult update(@RequestBody Tag tag, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        int res = tagService.getByNameAndUserId(tag.getName(), user.getUser_id());
+        if (res < 0){
+            return new ResponseResult(200, -2, "该标签已存在！");
+        }
+        res = tagService.updateTagName(tag.getName(), tag.getTag_id());
+        if(res == 1){
+            return new ResponseResult(200, 1, "更新成功！");
+        }else{
+            return new ResponseResult(200, -1, "更新失败！");
+        }
     }
 
 }

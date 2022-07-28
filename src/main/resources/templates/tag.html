@@ -54,18 +54,18 @@
                                     <div class="modal-body">
                                         <form>
                                             <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                <input type="text" class="form-control" id="recipient-name">
+                                                <label for="old-tag-name" class="col-form-label">Old Name:</label>
+                                                <input type="text" class="form-control" id="old-tag-name" disabled>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="message-text" class="col-form-label">Message:</label>
-                                                <textarea class="form-control" id="message-text"></textarea>
+                                                <label for="new-tag-name" class="col-form-label">New Name: (Case insensitive)</label>
+                                                <input type="text" class="form-control" id="new-tag-name">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Send message</button>
+                                        <button onclick="updateTag()" type="button" class="btn btn-primary">Commit</button>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                     <div class="modal-body">
                                         <form>
                                             <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label">Tag name:</label>
+                                                <label for="tag_name" class="col-form-label">Tag name:</label>
                                                 <input type="text" class="form-control" id="tag_name">
                                             </div>
                                         </form>
@@ -104,14 +104,14 @@
                                                     <h5 class="fw-bolder" th:text="${tag.name}"></h5>
                                                     <!-- Label Problem rating-->
                                                     <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 10%" th:text="${tag.count}"></div>
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:style="'width:' + (${countSum eq 0} ? '5%' : ${tag.count * 1.0 / countSum * 100} + '%')" th:text="${tag.count}"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Product actions-->
                                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                                 <div class="d-flex justify-content-between">
-                                                    <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-whatever="你好" data-bs-target="#changeModal">
+                                                    <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" th:attr="data-bs-name=${tag.name}, data-bs-id=${tag.tag_id}, data-bs-count=${tag.count}, data-bs-user=${tag.user}" data-bs-target="#changeModal">
                                                         Change
                                                     </button>
                                                     <button type="button" class="btn btn-secondary mt-auto" data-bs-toggle="modal" th:attr="data-bs-whatever=${tag.tag_id}" data-bs-target="#removeModal">
@@ -138,50 +138,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
         <script src="/js/scripts.js"></script>
-        <script>
-            var exampleModal = document.getElementById('removeModal')
-            exampleModal.addEventListener('show.bs.modal', function (event) {
-                // Button that triggered the modal
-                var button = event.relatedTarget
-                // Extract info from data-bs-* attributes
-                var tag_id = button.getAttribute('data-bs-whatever')
-                var remove_button = exampleModal.querySelector('.modal-footer #remove_link')
-                remove_button.href = '/tag/delete/' + tag_id
-            })
-        </script>
-        <script>
-            function insertTag() {
-                var tagModal = document.getElementById('tag_name');
-                var tag_name = tagModal.value.replace(/^\s*|\s*$/g,"");
-                var toastLive = document.getElementById('liveToast');
-                var toast_msg = document.getElementById('toast_msg');
-                var toast = new bootstrap.Toast(toastLive);
-                if (tag_name == undefined || tag_name == null || tag_name == ''){
-                    toast_msg.textContent='请为标签起个名字！';
-                    toast.show();
-                    return;
-                };
-                var data = {
-                    "name": tag_name
-                };
-                $.ajax({
-                    url: "/tag/insert",
-                    type: "POST",  //默认值: "GET"请求方式 ("POST" 或 "GET")
-                    data: JSON.stringify(data),
-                    dataType: "json",
-                    contentType:"application/json;charset=UTF-8",
-                    success: function(data){      // 回调结果，如果成功
-                        toast_msg.textContent=data['message'];
-                        toast.show();
-                        if (data['status'] == 1){
-                            location.reload();
-                        };
-                    },
-                    error: function() {
-                        alert("发生错误，请反馈！");
-                    }
-                })
-            };
-        </script>
+        <script src="/js/tag.js"></script>
     </body>
 </html>

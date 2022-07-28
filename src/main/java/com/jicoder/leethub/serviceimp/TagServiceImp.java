@@ -28,8 +28,26 @@ public class TagServiceImp implements TagService {
     }
 
     @Override
+    public int getByNameAndUserId(String name, int user_id) {
+        if (tagMapper.selectByNameAndUserId(name, user_id) != null){
+            return -1;
+        }
+        return 1;
+    }
+
+    @Override
     public int deleteById(int tag_id) {
         return tagMapper.deleteById(tag_id);
+    }
+
+    @Override
+    public int updateTagName(String name, int tag_id) {
+        return tagMapper.updateName(name, tag_id);
+    }
+
+    @Override
+    public int getCountSum(int user_id) {
+        return tagMapper.selectCountSum(user_id);
     }
 
 
