@@ -58,22 +58,3 @@ function updateTag() {
     cur_tag.name = new_name;
     ajaxRequest("/tag/update_name", "POST", cur_tag);
 };
-function ajaxRequest(url, type, data) {
-    $.ajax({
-        url: url,
-        type: type,  //默认值: "GET"请求方式 ("POST" 或 "GET")
-        data: JSON.stringify(data),
-        dataType: "json",
-        contentType:"application/json;charset=UTF-8",
-        success: function(data){      // 回调结果，如果成功
-            toast_msg.textContent=data['message'];
-            toast.show();
-            if (data['status'] == 1){
-                location.reload();
-            };
-        },
-        error: function() {
-            alert("发生错误，请反馈！");
-        }
-    })
-}

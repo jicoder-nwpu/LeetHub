@@ -2,6 +2,7 @@ package com.jicoder.leethub.controller;
 
 import com.jicoder.leethub.pojo.Tag;
 import com.jicoder.leethub.pojo.User;
+import com.jicoder.leethub.service.ProToTagService;
 import com.jicoder.leethub.service.TagService;
 import com.jicoder.leethub.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;

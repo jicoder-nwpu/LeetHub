@@ -26,6 +26,12 @@ public interface TagMapper {
     @Select("select * from tag where user_id=#{user_id} and name=#{name}")
     Tag selectByNameAndUserId(String name, int user_id);
 
+    @Select("select * from tag where tag_id in (select tag_id from prototag where problem_id=#{problem_id} and tag_id in (select tag_id from tag where user_id=#{user_id}))")
+    List<Tag> selectTagByUserAndProblem(int user_id, int problem_id);
+
+    @Select("select * from tag where tag_id not in (select tag_id from prototag where problem_id=#{problem_id} and tag_id in (select tag_id from tag where user_id=#{user_id}))")
+    List<Tag> selectUnUsedTagByUserAndProblem(int user_id, int problem_id);
+
     @Delete("delete from tag where tag_id=#{tag_id}")
     int deleteById(int tag_id);
 

@@ -6,6 +6,7 @@ import com.jicoder.leethub.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -25,6 +26,16 @@ public class TagServiceImp implements TagService {
     @Override
     public List<Tag> getAllTagsByUserId(int user_id) {
         return tagMapper.selectAllByUserId(user_id);
+    }
+
+    @Override
+    public List<Tag> getTagByUserAndProblem(int user_id, int problem_id) {
+        return tagMapper.selectTagByUserAndProblem(user_id, problem_id);
+    }
+
+    @Override
+    public List<Tag> getUnusedTags(int user_id, int problem_id) {
+        return tagMapper.selectUnUsedTagByUserAndProblem(user_id, problem_id);
     }
 
     @Override

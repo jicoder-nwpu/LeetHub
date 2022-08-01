@@ -11,19 +11,30 @@
   </head>
 
   <body>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
       <!-- Navbar Brand-->
       <div class="navbar-brand ps-3" href="/user">Start LeetHub</div>
+      <a th:href="@{/tag}" class="btn bg-primary text-white ms-auto me-3">Manage Tag</a>
     </nav>
     <div class="d-flex mt-1">
       <div class="col-xl-5 mt-4 mb-4 ms-xl-1">
         <div class="card">
           <div class="card-header">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-content-center">
               <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
-              <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
-              <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
-              <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+              <div th:fragment="show_tags" th:id="show_tags" class="mt-1 d-flex">
+                <div class="me-1" th:each="tag:${used_tags}">
+                  <span class="bodge">
+                    <span class="badge bg-primary" th:text="${tag.name}"></span>
+                    <span class="badge bg-secondary">4</span>
+                  </span>
+                </div>
+              </div>
+              <div class="mt-1">
+                <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
+                <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
+                <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+              </div>
             </div>
           </div>
           <div class="card-body">
@@ -33,8 +44,16 @@
       </div>
       <div class="col-xl-7 mt-4 mb-4">
         <form>
-          <div class="mb-3 mx-xl-4">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="标题">
+          <div class="d-flex mb-3 mx-xl-4">
+            <div class="me-auto" style="width: 70%">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="标题">
+            </div>
+            <select th:fragment="tag_selector" th:id="tag_selector" class="w-25 form-select me-auto" style="border-color: #0d6efd" placeholder="为题目添加  Tag">
+              <div th:each="tag:${unused_tags}">
+                <option th:value="${tag.tag_id}" th:text="${tag.name}"></option>
+              </div>
+              <option value="-1" selected>为题目添加  Tag</option>
+            </select>
           </div>
           <div id="article-content">
             <textarea name="content" id="content" style=""></textarea>
@@ -42,7 +61,6 @@
         </form>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
     <script th:src="@{/md/editormd.js}"></script>
     <script type="text/javascript">
@@ -83,6 +101,41 @@
           }
         });
       });
+    </script>
+    <script th:inline="javascript">
+      $('#tag_selector').change(function () {
+        var tag = $('#tag_selector').val();
+        if(tag == -1){
+          return;
+        }
+        var data = {
+          "tag_id": tag,
+          "problem_id": [[${problem.problem_id}]]
+        }
+        ajaxRequestAlert("/ptt/insert", "POST", data);
+      });
+      function ajaxRequestAlert(url, type, data) {
+        $.ajax({
+          url: url,
+          type: type,  //默认值: "GET"请求方式 ("POST" 或 "GET")
+          data: JSON.stringify(data),
+          // dataType: "json",
+          contentType:"application/json;charset=UTF-8",
+          async:true,
+          success: function(data){      // 回调结果，如果成功
+            $('#show_tags').html(data);
+            refreshTag();
+          },
+          error: function(data) {
+            console.log(data);
+            alert("发生错误，请反馈！");
+          }
+        })
+      };
+      function refreshTag(){
+        var url = '/ptt/refresh_tag/' + [[${problem.problem_id}]];
+        $('#tag_selector').load(url);
+      }
     </script>
   </body>
 </html>

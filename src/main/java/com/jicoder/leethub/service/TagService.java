@@ -10,6 +10,10 @@ public interface TagService {
 
     List<Tag> getAllTagsByUserId(int user_id);
 
+    List<Tag> getTagByUserAndProblem(int user_id, int problem_id);
+
+    List<Tag> getUnusedTags(int user_id, int problem_id);
+
     int getByNameAndUserId(String name, int user_id);
 
     int deleteById(int tag_id);
