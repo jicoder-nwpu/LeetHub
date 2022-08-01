@@ -3,11 +3,10 @@ package com.jicoder.leethub.dao;
 import com.jicoder.leethub.pojo.ProToUser;
 import com.jicoder.leethub.pojo.Problem;
 import com.jicoder.leethub.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Mapper
 public interface ProToUserMapper {
@@ -19,5 +18,14 @@ public interface ProToUserMapper {
     @Select("select * from protouser where user_id=#{user.user_id} and problem_id=#{problem.problem_id}" +
             " order by submit_time desc limit 1")
     ProToUser selectPUByUserAndProblem(Problem problem, User user);
+
+    @Select("select pu.*, p.* from protouser pu, problem p where pu.problem_id=p.problem_id and user_id=#{user_id} order by submit_time desc")
+    @Results({
+            @Result(column = "problem_id", property = "problem.problem_id"),
+            @Result(column = "title", property = "problem.title"),
+            @Result(column = "url", property = "problem.url"),
+            @Result(column = "difficulty", property = "problem.difficulty")
+    })
+    List<ProToUser> selectAllByUser(int user_id);
 
 }

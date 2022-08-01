@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class ProToUserServiceImp implements ProToUserService {
@@ -32,5 +33,10 @@ public class ProToUserServiceImp implements ProToUserService {
         }else{
             return Utils.isToday(res.getSubmit_time().getTime());
         }
+    }
+
+    @Override
+    public List<ProToUser> getAllByUser(int user_id) {
+        return proToUserMapper.selectAllByUser(user_id);
     }
 }
