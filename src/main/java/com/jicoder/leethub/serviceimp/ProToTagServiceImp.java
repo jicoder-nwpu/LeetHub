@@ -16,4 +16,9 @@ public class ProToTagServiceImp implements ProToTagService {
         return proToTagMapper.insert(tag_id, problem_id);
     }
 
+    @Override
+    public int remove(int tag_id, int problem_id) {
+        return proToTagMapper.delete(tag_id, problem_id);
+    }
+
 }

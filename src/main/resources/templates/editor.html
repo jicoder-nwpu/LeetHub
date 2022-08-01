@@ -17,23 +17,26 @@
       <a th:href="@{/tag}" class="btn bg-primary text-white ms-auto me-3">Manage Tag</a>
     </nav>
     <div class="d-flex mt-1">
-      <div class="col-xl-5 mt-4 mb-4 ms-xl-1">
+      <div class="col-xl-5 mt-4 mb-4">
         <div class="card">
           <div class="card-header">
-            <div class="d-flex justify-content-between align-content-center">
-              <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
-              <div th:fragment="show_tags" th:id="show_tags" class="mt-1 d-flex">
-                <div class="me-1" th:each="tag:${used_tags}">
-                  <span class="bodge">
-                    <span class="badge bg-primary" th:text="${tag.name}"></span>
-                    <span class="badge bg-secondary">4</span>
-                  </span>
+            <div th:fragment="show_tags" th:id="show_tags">
+              <div class="d-flex justify-content-between align-content-center">
+                <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
+                <div class="d-flex">
+                  <div class="me-2 mt-2" th:each="tag:${used_tags}">
+                    <div class="d-flex badge bg-primary position-relative">
+                      <h7 th:text="${tag.name}"></h7>
+                      <span class="position-absolute top-0 start-100 translate-middle bg-danger rounded-circle btn-close" th:id="${tag.name}" th:attr="tag_id=${tag.tag_id}" onclick="removeTag(this.id)" style="padding: 0.30rem">
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-1">
-                <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
-                <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
-                <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+                <div class="mt-1">
+                  <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
+                  <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
+                  <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+                </div>
               </div>
             </div>
           </div>
@@ -44,7 +47,7 @@
       </div>
       <div class="col-xl-7 mt-4 mb-4">
         <form>
-          <div class="d-flex mb-3 mx-xl-4">
+          <div class="d-flex mb-3 px-4">
             <div class="me-auto" style="width: 70%">
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="标题">
             </div>
@@ -123,7 +126,8 @@
           contentType:"application/json;charset=UTF-8",
           async:true,
           success: function(data){      // 回调结果，如果成功
-            $('#show_tags').html(data);
+            // alert(data['message']);
+            showTag();
             refreshTag();
           },
           error: function(data) {
@@ -132,10 +136,23 @@
           }
         })
       };
+      function removeTag(btn_id){
+        var button = document.getElementById(btn_id);
+        var tag_id = button.getAttribute('tag_id');
+        var data = {
+          "tag_id": tag_id,
+          "problem_id": [[${problem.problem_id}]]
+        }
+        ajaxRequestAlert("/ptt/remove", "POST", data);
+      };
+      function showTag(){
+        var url = '/ptt/show_tag/' + [[${problem.problem_id}]];
+        $('#show_tags').load(url);
+      };
       function refreshTag(){
         var url = '/ptt/refresh_tag/' + [[${problem.problem_id}]];
         $('#tag_selector').load(url);
-      }
+      };
     </script>
   </body>
 </html>
