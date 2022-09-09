@@ -28,7 +28,7 @@ public class ProToUserController {
     public String all(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         List<ProToUser> all = proToUserService.getAllByUser(user.getUser_id());
-        model.addAttribute("pus", all);
+        model.addAttribute("pus", proToUserService.getAllRecord(all,  user.getUser_id()));
         return "user/record";
     }
 

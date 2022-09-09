@@ -37,17 +37,18 @@
                                     <tbody>
                                         <tr th:each="pu:${pus}">
                                             <td>
-                                                <a th:text="${pu.problem.title}" target="_blank" th:href="${pu.problem.url}"></a>
+                                                <a th:text="${pu.title}" target="_blank" th:href="${pu.url}"></a>
                                             </td>
-                                            <td th:if="${pu.problem.difficulty} eq 'Medium'" class="bg-warning">Medium</td>
-                                            <td th:if="${pu.problem.difficulty} eq 'Hard'" class="bg-danger">Hard</td>
-                                            <td th:if="${pu.problem.difficulty} eq 'Easy'" class="bg-success">Easy</td>
-                                            <td th:if="${pu.problem.difficulty} eq 'MEDIUM'" class="bg-warning">Medium</td>
-                                            <td th:if="${pu.problem.difficulty} eq 'HARD'" class="bg-danger">Hard</td>
-                                            <td th:if="${pu.problem.difficulty} eq 'EASY'" class="bg-success">Easy</td>
+                                            <td th:if="${pu.difficulty} eq 'Medium'" class="bg-warning">Medium</td>
+                                            <td th:if="${pu.difficulty} eq 'Hard'" class="bg-danger">Hard</td>
+                                            <td th:if="${pu.difficulty} eq 'Easy'" class="bg-success">Easy</td>
+                                            <td th:if="${pu.difficulty} eq 'MEDIUM'" class="bg-warning">Medium</td>
+                                            <td th:if="${pu.difficulty} eq 'HARD'" class="bg-danger">Hard</td>
+                                            <td th:if="${pu.difficulty} eq 'EASY'" class="bg-success">Easy</td>
                                             <td th:text="${pu.submit_time}" class="text-center"></td>
                                             <td class="text-center">
-                                                <a th:href="@{'/editor/' + ${pu.problem.problem_id}}">去总结</a>
+                                                <a th:href="@{'/editor/' + ${pu.problem_id}}">去总结</a>
+                                                <a th:if="${pu.solution_id}" class="text-success" th:href="@{'/solution/' + ${pu.solution_id}}">去复习</a>
                                             </td>
                                         </tr>
                                     </tbody>

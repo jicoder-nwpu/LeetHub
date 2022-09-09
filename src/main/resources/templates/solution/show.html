@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>LeetHub</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/md/css/editormd.preview.css" />
+    </style>
+</head>
+<body>
+<div id="layout">
+    <header>
+        <h1 th:text="${solution.title}"></h1>
+    </header>
+    <div id="editormd-view">
+        <textarea style="display:none;" th:text="${solution.context}"></textarea>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
+<script src="/md/lib/marked.min.js"></script>
+<script src="/md/lib/prettify.min.js"></script>
+
+<script src="/md/lib/raphael.min.js"></script>
+<script src="/md/lib/underscore.min.js"></script>
+<script src="/md/lib/sequence-diagram.min.js"></script>
+<script src="/md/lib/flowchart.min.js"></script>
+<script src="/md/lib/jquery.flowchart.min.js"></script>
+
+<script src="/md/editormd.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var editormdView;
+
+        editormdView = editormd.markdownToHTML("editormd-view", {
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+    });
+</script>
+</body>
+</html>
