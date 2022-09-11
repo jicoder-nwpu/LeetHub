@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/solution")
@@ -52,10 +53,11 @@ public class SolutionController {
 
     @ResponseBody
     @PostMapping("/save")
-    public int save(@RequestParam("title") String title,
-                    @RequestParam("context") String context,
-                    @RequestParam("problem_id") int problem_id,
+    public int save(@RequestBody Map params,
                     HttpSession session){
+        int problem_id = Integer.parseInt((String) params.get("problem_id"));
+        String title = (String) params.get("title");
+        String context = (String) params.get("context");
         User user = (User) session.getAttribute("user");
         Solution old_solution = solutionService.getByPidAndUid(problem_id, user.getUser_id());
         Solution solution = new Solution(title, context, new Timestamp(new Date().getTime()), user, problemService.getProblemById(problem_id));

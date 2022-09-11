@@ -52,12 +52,10 @@
               </div>
             </div>
             <div class="col-xl-7 mt-4 mb-4">
-              <iframe  width=0 height=0 style="display: none" id="myiframe" name="myiframe"></iframe>
-              <form id="solutionForm" name="solutionForm" target="myiframe">
+              <form id="solutionForm" name="solutionForm">
                 <div class="d-flex mb-3 px-4">
                   <div class="me-auto" style="width: 70%">
-                    <input th:if="${solution}" type="" class="form-control" name="title" placeholder="标题" th:value="${solution.title}">
-                    <input th:if="${#strings.isEmpty(solution)}" type="" class="form-control" name="title" placeholder="标题">
+                    <input id="solution_title" type="" class="form-control" name="title" placeholder="标题" th:value="${solution} ?  ${solution.title} : ''">
                   </div>
                   <select th:fragment="tag_selector" th:id="tag_selector" class="w-25 form-select me-auto" style="border-color: #0d6efd" placeholder="为题目添加  Tag">
                     <div th:each="tag:${unused_tags}">
@@ -67,10 +65,9 @@
                   </select>
                 </div>
                 <div id="article-content">
-                  <textarea th:if="${solution}" name="context" th:text="${solution.context}"></textarea>
-                  <textarea th:if="${#strings.isEmpty(solution)}" name="context"></textarea>
+                  <textarea id="solution_context" name="context" th:text="${solution} ? ${solution.context} : ''"></textarea>
                 </div>
-                <input type="hidden" class="form-control" name="problem_id"  th:value="${problem.problem_id}">
+                <input id="problem_id" type="hidden" class="form-control" name="problem_id"  th:value="${problem.problem_id}">
               </form>
             </div>
           </div>
@@ -84,7 +81,7 @@
       $(function() {
         testEditor = editormd("article-content", {
           width : "95%",
-          autoHeight : true,
+          autoHeight: true,
           syncScrolling : "single",
           path : "../md/lib/", //使用自己的路径
           saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
@@ -105,12 +102,12 @@
           /*指定需要显示的功能按钮*/
           toolbarIcons : function() {
             return ["undo","redo","|",
-              "bold","del","italic","quote","uppercase","lowercase","|",
+              "bold","del","italic","|",
               // "h1","h2","h3","h4","h5","h6","|",
               "list-ul","list-ol","hr","|",
               "link","reference-link","image","code","preformatted-text",
               "code-block","table","datetime","emoji","html-entities","pagebreak","fullscreen","|",
-              "goto-line", "watch","preview","clear","search","|", "saveIcon","releaseIcon",
+              "watch","preview","clear","search","|", "saveIcon","releaseIcon",
               // "help","info","releaseIcon", "index"
             ]
           },
@@ -123,9 +120,7 @@
           /*给自定义按钮指定回调函数*/
           toolbarHandlers:{
             saveIcon : function (){
-              solutionForm.method = "post";
-              solutionForm.action = "/solution/save";
-              solutionForm.submit();
+              saveSolution();
             },
             releaseIcon : function(){
               solutionForm.method = "post";
@@ -137,6 +132,18 @@
       });
     </script>
     <script th:inline="javascript">
+      function saveSolution(){
+        console.log(555);
+        var title = $('#solution_title').val();
+        var context = $('#solution_context').text();
+        var problem_id = $('#problem_id').val();
+        data = {
+          "title": title,
+          "context": context,
+          "problem_id": problem_id
+        };
+        ajaxRequestAlert("/solution/save", "POST", data);
+      };
       $('#tag_selector').change(function () {
         var tag = $('#tag_selector').val();
         if(tag == -1){
@@ -184,6 +191,7 @@
         var url = '/ptt/refresh_tag/' + [[${problem.problem_id}]];
         $('#tag_selector').load(url);
       };
+      setInterval('saveSolution()', 0.5 * 60 * 1000);
     </script>
   </body>
 </html>
