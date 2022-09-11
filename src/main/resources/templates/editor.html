@@ -12,15 +12,19 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark pe-5">
       <!-- Navbar Brand-->
       <div class="navbar-brand ps-3">Start LeetHub</div>
       <!-- Navbar-->
-      <a class="navbar-brand ps-3 text-primary" href="/user">Analysis Panel</a>
-      <a class="navbar-brand ps-3 text-primary" th:href="@{/pu/all}">Submit Record</a>
-      <a class="navbar-brand ps-3 text-primary" th:href="@{/score}">Score Panel</a>
-      <a class="navbar-brand ps-3 text-primary" th:href="@{/rank/all}">Rank panel</a>
-      <a th:href="@{/tag}" class="btn bg-primary text-white ms-auto me-3">Manage Tag</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/user">Analysis Panel</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/pu/all}">Submit Record</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/score}">Score Panel</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/rank/all}">Rank panel</a></li>
+          <li class="nav-item pe-5"><a class="text-primary nav-link" aria-current="page" th:href="@{/tag}">Manage Tag</a></li>
+        </ul>
+      </div>
     </nav>
     <div class="d-flex mt-1">
             <div class="col-xl-5 mt-4 mb-4">
@@ -123,6 +127,11 @@
               saveSolution();
             },
             releaseIcon : function(){
+              var title = $('#solution_title').val();
+              var context = $('#solution_context').text();
+              if(title == "" && context == ""){
+                return;
+              }
               solutionForm.method = "post";
               solutionForm.action = "/solution/insert";
               solutionForm.submit();
@@ -133,9 +142,11 @@
     </script>
     <script th:inline="javascript">
       function saveSolution(){
-        console.log(555);
         var title = $('#solution_title').val();
         var context = $('#solution_context').text();
+        if(title == "" && context == ""){
+          return;
+        }
         var problem_id = $('#problem_id').val();
         data = {
           "title": title,
@@ -192,6 +203,10 @@
         $('#tag_selector').load(url);
       };
       setInterval('saveSolution()', 0.5 * 60 * 1000);
+      window.addEventListener('beforeunload', function (e) {
+        saveSolution();
+        e.preventDefault();
+      });
     </script>
   </body>
 </html>

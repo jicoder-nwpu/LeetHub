@@ -47,8 +47,8 @@
                                             <td th:if="${pu.difficulty} eq 'EASY'" class="bg-success">Easy</td>
                                             <td th:text="${pu.submit_time}" class="text-center"></td>
                                             <td class="text-center">
-                                                <a th:href="@{'/editor/' + ${pu.problem_id}}">去总结</a>
-                                                <a th:if="${pu.solution_id}" class="text-success" th:href="@{'/solution/' + ${pu.solution_id}}">去复习</a>
+                                                <a th:href="@{'/editor/' + ${pu.problem_id}}" target="_blank">去总结</a>
+                                                <a th:if="${pu.solution_id}" class="text-success" th:href="@{'/solution/' + ${pu.solution_id}}" target="_blank">去复习</a>
                                             </td>
                                         </tr>
                                     </tbody>

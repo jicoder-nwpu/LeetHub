@@ -32,10 +32,20 @@ public class HelloController {
 
     @RequestMapping("")
     public String hello(HttpSession session){
-        if(session.getAttribute("user") != null){
+        if(session.getAttribute("user") == null){
+            return "home";
+        }else{
             return "redirect:/user";
         }
-        return "login";
+    }
+
+    @RequestMapping("home")
+    public String index(HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "home";
+        }else{
+            return "redirect:/user";
+        }
     }
 
     @GetMapping("editor/{problem_id}")
