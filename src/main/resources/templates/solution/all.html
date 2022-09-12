@@ -21,14 +21,19 @@
         </nav>
         <!-- Page content-->
         <div class="container mt-5">
-            <div class="row">
+            <div th:if="not ${solutions}" class="d-flex justify-content-center align-items-center">
+                <div class="card" style="width: 24rem;">
+                    <img src="/assets/img/null.png" class="card-img-top">
+                </div>
+            </div>
+            <div th:if="${solutions}" class="row">
                 <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <header>
-                            <div class="d-flex align-items-center">
-                                <h1 th:text="${solution.title} + '  -'"></h1>
-                                <div class="ms-2">
+                    <div th:each="solution:${solutions}">
+                        <!-- Post content-->
+                        <div class="position-relative">
+                            <a th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
+                            <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem;" class="d-flex align-items-center mt-2">
+                                <div>
                                     <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
                                     <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
                                     <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
@@ -36,45 +41,28 @@
                                     <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
                                     <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
                                 </div>
-                                <a class="ms-2" style="font-size: x-large" th:href="${solution.problem.url}" th:text="${solution.problem.title}" target="_blank"></a>
+                                <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
+                                <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>
+                                <div class="ms-5" th:text="${solution.update_time}"></div>
                             </div>
-                            <div class="ms-5">
-                                <div th:text="'发布于：' + ${solution.update_time}"></div>
-                                <div th:text="'作者：' + ${solution.user.username}"></div>
-                            </div>
-                        </header>
-                        <div id="editormd-view">
-                            <hr />
-                            <textarea style="display:none;" th:text="${solution.context}"></textarea>
                         </div>
-                    </article>
+                    </div>
                 </div>
-                <!-- Side widgets-->
                 <div class="col-lg-4">
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div style="flex: 1 1 auto; padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03);">最近的题解</div>
-                        <div th:if="${solutions}" th:each="solution:${solutions}">
-                            <div class="position-relative">
-                                <a th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
-                                <div style="border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); padding: 0.5rem 1rem; background-color: #fff; border-top: 1px solid rgba(0, 0, 0, 0.125);">
-                                    <div class="d-flex">
-                                        <div>
-                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
-                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
-                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
-                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
-                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
-                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
-                                        </div>
-                                        <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
-                                        <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>
+                    <!-- Categories widget-->
+                    <div class="card mb-4 mt-2">
+                        <div class="card-header">Tags</div>
+                        <div class="card-body">
+                            <div th:if="${tags}" class="container">
+                                <div class="row row-cols-3">
+                                    <div th:each="tag:${tags}">
+                                        <a href="" th:text="${tag.name}"></a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body" th:if="not ${solutions}">
-                            没有更多题解
+                            <div th:if="not ${tags}" class="d-flex justify-content-center">
+                                <a th:href="@{/tag}">Manage Tags</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -16,15 +16,7 @@
       <!-- Navbar Brand-->
       <div class="navbar-brand ps-3">Start LeetHub</div>
       <!-- Navbar-->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="/user">Analysis Panel</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/pu/all}">Submit Record</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/score}">Score Panel</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/rank/all}">Rank panel</a></li>
-          <li class="nav-item pe-5"><a class="text-primary nav-link" aria-current="page" th:href="@{/tag}">Manage Tag</a></li>
-        </ul>
-      </div>
+      <header th:replace="nav_bar"></header>
     </nav>
     <div class="d-flex mt-1">
             <div class="col-xl-5 mt-4 mb-4">
@@ -46,6 +38,9 @@
                         <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
                         <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
                         <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+                        <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'HARD'}">Hard</span>
+                        <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'MEDIUM'}">Medium</span>
+                        <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'EASY'}">Easy</span>
                       </div>
                     </div>
                   </div>
@@ -132,6 +127,14 @@
               if(title == "" && context == ""){
                 return;
               }
+              if(title == ""){
+                var el = document.getElementById("solution_title");
+                el.value = "未命名";
+              }
+              if(context == ""){
+                var el = document.getElementById("solution_context");
+                el.textContent = "未总结";
+              }
               solutionForm.method = "post";
               solutionForm.action = "/solution/insert";
               solutionForm.submit();
@@ -141,11 +144,17 @@
       });
     </script>
     <script th:inline="javascript">
-      function saveSolution(){
+        function saveSolution(){
         var title = $('#solution_title').val();
         var context = $('#solution_context').text();
         if(title == "" && context == ""){
           return;
+        }
+        if(title == ""){
+          title = "未名题";
+        }
+        if(context == ""){
+          context = "未总结";
         }
         var problem_id = $('#problem_id').val();
         data = {

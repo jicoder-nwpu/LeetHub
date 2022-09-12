@@ -18,7 +18,7 @@ public interface TagMapper {
     int updateName(String name, int tag_id);
 
     @Select("select sum(count) from tag where user_id=#{user_id}")
-    int selectCountSum(int user_id);
+    Integer selectCountSum(int user_id);
 
     @Select("select * from tag where user_id=#{user_id}")
     List<Tag> selectAllByUserId(int user_id);

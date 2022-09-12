@@ -58,7 +58,12 @@ public class TagServiceImp implements TagService {
 
     @Override
     public int getCountSum(int user_id) {
-        return tagMapper.selectCountSum(user_id);
+        Integer sum = tagMapper.selectCountSum(user_id);
+        if(sum == null){
+            return 0;
+        }else{
+            return sum;
+        }
     }
 
 

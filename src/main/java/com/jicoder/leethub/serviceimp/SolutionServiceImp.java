@@ -6,6 +6,8 @@ import com.jicoder.leethub.service.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SolutionServiceImp implements SolutionService {
 
@@ -30,5 +32,15 @@ public class SolutionServiceImp implements SolutionService {
     @Override
     public Solution getById(int solution_id) {
         return solutionMapper.getById(solution_id);
+    }
+
+    @Override
+    public List<Solution> getAllByUid(int user_id) {
+        return solutionMapper.getAllByUid(user_id);
+    }
+
+    @Override
+    public List<Solution> getLatestByUid(int user_id, int solution_id, int count) {
+        return solutionMapper.getLatestByUid(user_id, solution_id, count);
     }
 }

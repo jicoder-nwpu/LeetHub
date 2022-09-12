@@ -63,6 +63,7 @@ public class HelloController {
         if(solution != null){
             model.addAttribute("solution", solution);
         }
+        model.addAttribute("type", 0);
         return "editor";
     }
 

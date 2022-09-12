@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                        <a id="remove_link" href="" class="btn btn-link bg-primary text-white">Yes</a>
+                                        <a id="remove_link" class="btn btn-link bg-primary text-white">Yes</a>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                                     <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" th:attr="data-bs-name=${tag.name}, data-bs-id=${tag.tag_id}, data-bs-count=${tag.count}, data-bs-user=${tag.user}" data-bs-target="#changeModal">
                                                         Change
                                                     </button>
-                                                    <button type="button" class="btn btn-secondary mt-auto" data-bs-toggle="modal" th:attr="data-bs-whatever=${tag.tag_id}" data-bs-target="#removeModal">
+                                                    <button type="button" class="btn btn-secondary mt-auto" data-bs-toggle="modal" th:attr="data-bs-id=${tag.tag_id}" data-bs-target="#removeModal">
                                                         Remove
                                                     </button>
                                                 </div>

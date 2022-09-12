@@ -2,23 +2,23 @@ var toastLive = document.getElementById('liveToast');
 var toast_msg = document.getElementById('toast_msg');
 var toast = new bootstrap.Toast(toastLive);
 
-var exampleModal = document.getElementById('removeModal')
-exampleModal.addEventListener('show.bs.modal', function (event) {
+var removeModal = document.getElementById('removeModal')
+removeModal.addEventListener('show.bs.modal', function (event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
-    var tag_id = button.getAttribute('data-bs-whatever')
-    var remove_button = exampleModal.querySelector('.modal-footer #remove_link')
+    var tag_id = button.getAttribute('data-bs-id')
+    var remove_button = removeModal.querySelector('.modal-footer #remove_link')
     remove_button.href = '/tag/delete/' + tag_id
 });
-var exampleModal = document.getElementById('changeModal');
+var changeModal = document.getElementById('changeModal');
 var cur_tag;
-exampleModal.addEventListener('show.bs.modal', function (event) {
+changeModal.addEventListener('show.bs.modal', function (event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
     var tag_name = button.getAttribute('data-bs-name')
-    var old_name = exampleModal.querySelector('.modal-body #old-tag-name')
+    var old_name = changeModal.querySelector('.modal-body #old-tag-name')
     old_name.placeholder = tag_name
 
     cur_tag = {
@@ -58,3 +58,6 @@ function updateTag() {
     cur_tag.name = new_name;
     ajaxRequest("/tag/update_name", "POST", cur_tag);
 };
+function deleteTag() {
+
+}
