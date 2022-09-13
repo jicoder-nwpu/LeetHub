@@ -66,5 +66,15 @@ public class TagServiceImp implements TagService {
         }
     }
 
+    @Override
+    public int countAddOne(int tag_id) {
+        return tagMapper.countAddOne(tag_id);
+    }
+
+    @Override
+    public int countSubOne(int tag_id) {
+        return tagMapper.countSubOne(tag_id);
+    }
+
 
 }

@@ -16,6 +16,6 @@ public interface SolutionService {
 
     List<Solution> getAllByUid(int user_id);
 
-    List<Solution> getLatestByUid(int user_id, int solution_id, int count);
+    List<Solution> getLatestByUid(int user_id, int solution_id, int count, int type);
 
 }

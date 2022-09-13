@@ -104,7 +104,7 @@
                                                     <h5 class="fw-bolder" th:text="${tag.name}"></h5>
                                                     <!-- Label Problem rating-->
                                                     <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:style="'width:' + (${countSum eq 0} ? '5%' : ${tag.count * 1.0 / countSum * 100} + '%')" th:text="${tag.count}"></div>
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:style="'width:' + (${countSum eq 0 or tag.count eq 0} ? '5%' : ${tag.count * 1.0 / countSum * 100} + '%')" th:text="${tag.count}"></div>
                                                     </div>
                                                 </div>
                                             </div>

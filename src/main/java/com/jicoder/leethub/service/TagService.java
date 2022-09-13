@@ -22,4 +22,8 @@ public interface TagService {
 
     int getCountSum(int user_id);
 
+    int countAddOne(int tag_id);
+
+    int countSubOne(int tag_id);
+
 }

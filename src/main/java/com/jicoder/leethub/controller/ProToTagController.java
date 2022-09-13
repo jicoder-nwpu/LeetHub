@@ -31,7 +31,9 @@ public class ProToTagController {
     @PostMapping("/insert")
     public ResponseResult insert(@RequestBody Map params){
         int problem_id = Integer.parseInt(String.valueOf(params.get("problem_id")));
-        int res = proToTagService.insert(Integer.parseInt(String.valueOf(params.get("tag_id"))), problem_id);
+        int tag_id = Integer.parseInt(String.valueOf(params.get("tag_id")));
+        int res = proToTagService.insert(tag_id, problem_id);
+        tagService.countAddOne(tag_id);
         if(res == -1){
             return new ResponseResult(200, -1, "插入失败!");
         }
@@ -42,7 +44,9 @@ public class ProToTagController {
     @PostMapping("/remove")
     public ResponseResult remove(@RequestBody Map params){
         int problem_id = Integer.parseInt(String.valueOf(params.get("problem_id")));
-        int res = proToTagService.remove(Integer.parseInt(String.valueOf(params.get("tag_id"))), problem_id);
+        int tag_id = Integer.parseInt(String.valueOf(params.get("tag_id")));
+        int res = proToTagService.remove(tag_id, problem_id);
+        tagService.countSubOne(tag_id);
         if(res == -1){
             return new ResponseResult(200, -1, "移除失败!");
         }
@@ -54,14 +58,14 @@ public class ProToTagController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("used_tags", tagService.getTagByUserAndProblem(user.getUser_id(), problem_id));
         model.addAttribute("problem", problemService.getProblemById(problem_id));
-        return "editor::show_tags";
+        return "solution/editor::show_tags";
     }
 
     @GetMapping("/refresh_tag/{problem_id}")
     public String refresh_tag(@PathVariable int problem_id, HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         model.addAttribute("unused_tags", tagService.getUnusedTags(user.getUser_id(), problem_id));
-        return "editor::tag_selector";
+        return "solution/editor::tag_selector";
     }
 
 }

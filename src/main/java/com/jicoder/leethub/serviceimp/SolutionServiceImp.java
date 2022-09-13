@@ -40,7 +40,7 @@ public class SolutionServiceImp implements SolutionService {
     }
 
     @Override
-    public List<Solution> getLatestByUid(int user_id, int solution_id, int count) {
-        return solutionMapper.getLatestByUid(user_id, solution_id, count);
+    public List<Solution> getLatestByUid(int user_id, int solution_id, int count, int type) {
+        return solutionMapper.getLatestByUid(user_id, solution_id, count, type);
     }
 }

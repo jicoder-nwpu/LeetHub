@@ -35,4 +35,10 @@ public interface TagMapper {
     @Delete("delete from tag where tag_id=#{tag_id}")
     int deleteById(int tag_id);
 
+    @Update("update tag set count=count + 1 where tag_id=#{tag_id}")
+    int countAddOne(int tag_id);
+
+    @Update("update tag set count=count - 1 where tag_id=#{tag_id}")
+    int countSubOne(int tag_id);
+
 }

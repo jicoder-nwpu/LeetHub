@@ -31,7 +31,8 @@
                     <div th:each="solution:${solutions}">
                         <!-- Post content-->
                         <div class="position-relative">
-                            <a th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
+                            <a th:if="${solution.type} eq 1" th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
+                            <a th:if="${solution.type} eq 0" th:href="'/solution/editor/' + ${solution.problem.problem_id}" class="stretched-link"></a>
                             <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem;" class="d-flex align-items-center mt-2">
                                 <div>
                                     <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
@@ -44,6 +45,7 @@
                                 <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
                                 <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>
                                 <div class="ms-5" th:text="${solution.update_time}"></div>
+                                <i class="ms-5 text-info" style="font-size: 16px" th:if="${solution.type} eq 0">DRAFT</i>
                             </div>
                         </div>
                     </div>
@@ -56,7 +58,7 @@
                             <div th:if="${tags}" class="container">
                                 <div class="row row-cols-3">
                                     <div th:each="tag:${tags}">
-                                        <a href="" th:text="${tag.name}"></a>
+                                        <a href="" th:text="${tag.name} + '(' + ${tag.count} + ')'"></a>
                                     </div>
                                 </div>
                             </div>

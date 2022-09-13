@@ -49,8 +49,24 @@ public class ProToUserServiceImp implements ProToUserService {
         for(ProToUser pu : list){
             Problem p = pu.getProblem();
             Solution s = solutionService.getByPidAndUid(p.getProblem_id(), user_id);
-            ans.add(new Record(p.getTitle(), p.getDifficulty(), pu.getSubmit_time(), p.getUrl(), p.getProblem_id(), s == null ? null : s.getSolution_id()));
+            if(s == null){
+                ans.add(new Record(p.getTitle(), p.getDifficulty(), pu.getSubmit_time(), p.getUrl(), p.getProblem_id(), null, pu.getAlias()));
+            }else if(s.getType() == Solution.SOLUTION_DRAFT_TYPE){
+                ans.add(new Record(p.getTitle(), p.getDifficulty(), pu.getSubmit_time(), p.getUrl(), p.getProblem_id(), -1, pu.getAlias()));
+            }else{
+                ans.add(new Record(p.getTitle(), p.getDifficulty(), pu.getSubmit_time(), p.getUrl(), p.getProblem_id(), s.getSolution_id(), pu.getAlias()));
+            }
         }
         return ans;
+    }
+
+    @Override
+    public String selectAliasById(int user_id, int problem_id) {
+        return proToUserMapper.selectAliasById(user_id, problem_id);
+    }
+
+    @Override
+    public int updateAlias(int user_id, int problem_id, String alias) {
+        return proToUserMapper.updateAlias(user_id, problem_id, alias);
     }
 }

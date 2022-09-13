@@ -17,5 +17,6 @@ public class Record {
     private String url;
     private int problem_id;
     private Integer solution_id;
+    private String alias;
 
 }

@@ -18,58 +18,63 @@
       <!-- Navbar-->
       <header th:replace="nav_bar"></header>
     </nav>
-    <div class="d-flex mt-1">
-            <div class="col-xl-5 mt-4 mb-4">
-              <div class="card">
-                <div class="card-header">
-                  <div th:fragment="show_tags" th:id="show_tags">
-                    <div class="d-flex justify-content-between align-content-center">
-                      <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
-                      <div class="d-flex">
-                        <div class="me-2 mt-2" th:each="tag:${used_tags}">
-                          <div class="d-flex badge bg-primary position-relative">
-                            <h7 th:text="${tag.name}"></h7>
-                            <span class="position-absolute top-0 start-100 translate-middle bg-danger rounded-circle btn-close" th:id="${tag.name}" th:attr="tag_id=${tag.tag_id}" onclick="removeTag(this.id)" style="padding: 0.30rem">
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="mt-1">
-                        <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
-                        <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
-                        <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
-                        <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'HARD'}">Hard</span>
-                        <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'MEDIUM'}">Medium</span>
-                        <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'EASY'}">Easy</span>
+    <div class="d-flex justify-content-center">
+      <div class="row mt-5" style="width: 90%">
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-header">
+              <div th:fragment="show_tags" th:id="show_tags">
+                <div class="d-flex justify-content-between align-content-center">
+                  <h5 class="mt-2" th:text="${problem.questionId} + '. ' + ${problem.title}"></h5>
+                  <div class="d-flex">
+                    <div class="me-2 mt-2" th:each="tag:${used_tags}">
+                      <div class="d-flex badge bg-primary position-relative">
+                        <h7 th:text="${tag.name}"></h7>
+                        <span class="position-absolute top-0 start-100 translate-middle bg-danger rounded-circle btn-close" th:id="${tag.name}" th:attr="tag_id=${tag.tag_id}" onclick="removeTag(this.id)" style="padding: 0.30rem">
+                    </span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-body">
-                  <div th:utext="${problem.content}"></div>
+                  <div class="mt-1">
+                    <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'Hard'}">Hard</span>
+                    <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'Medium'}">Medium</span>
+                    <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'Easy'}">Easy</span>
+                    <span class="badge bg-danger rounded-pill" th:if="${problem.difficulty eq 'HARD'}">Hard</span>
+                    <span class="badge bg-warning rounded-pill" th:if="${problem.difficulty eq 'MEDIUM'}">Medium</span>
+                    <span class="badge bg-success rounded-pill" th:if="${problem.difficulty eq 'EASY'}">Easy</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-xl-7 mt-4 mb-4">
-              <form id="solutionForm" name="solutionForm">
-                <div class="d-flex mb-3 px-4">
-                  <div class="me-auto" style="width: 70%">
-                    <input id="solution_title" type="" class="form-control" name="title" placeholder="标题" th:value="${solution} ?  ${solution.title} : ''">
-                  </div>
-                  <select th:fragment="tag_selector" th:id="tag_selector" class="w-25 form-select me-auto" style="border-color: #0d6efd" placeholder="为题目添加  Tag">
-                    <div th:each="tag:${unused_tags}">
-                      <option th:value="${tag.tag_id}" th:text="${tag.name}"></option>
-                    </div>
-                    <option value="-1" selected>为题目添加  Tag</option>
-                  </select>
-                </div>
-                <div id="article-content">
-                  <textarea id="solution_context" name="context" th:text="${solution} ? ${solution.context} : ''"></textarea>
-                </div>
-                <input id="problem_id" type="hidden" class="form-control" name="problem_id"  th:value="${problem.problem_id}">
-              </form>
+            <div class="card-body">
+              <div th:utext="${problem.content}"></div>
             </div>
           </div>
+        </div>
+        <div class="col-lg-7">
+          <form id="solutionForm" name="solutionForm">
+            <div class="d-flex mb-3" style="width: 95%; margin-left: 2rem">
+              <div class="me-auto" style="width: 45%">
+                <input id="solution_title" type="" class="form-control" name="title" th:value="${solution.title}">
+              </div>
+              <div class="me-auto" style="width: 25%">
+                <input id="alias" class="form-control border-warning" name="alias" th:value="${alias} eq null ? '起个别名' : ${alias}">
+              </div>
+              <select th:fragment="tag_selector" th:id="tag_selector" class="form-select me-auto" style="border-color: #0d6efd; width:20%;" placeholder="为题目添加  Tag">
+                <div th:each="tag:${unused_tags}">
+                  <option th:value="${tag.tag_id}" th:text="${tag.name}"></option>
+                </div>
+                <option value="-1" selected>为题目添加  Tag</option>
+              </select>
+            </div>
+            <div id="article-content">
+              <textarea id="solution_context" name="context" th:text="${solution.context}"></textarea>
+            </div>
+            <input id="problem_id" type="hidden" class="form-control" name="problem_id"  th:value="${problem.problem_id}">
+          </form>
+        </div>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
     <script th:src="@{/md/editormd.js}"></script>
@@ -82,7 +87,7 @@
           width : "95%",
           autoHeight: true,
           syncScrolling : "single",
-          path : "../md/lib/", //使用自己的路径
+          path : "/md/lib/", //使用自己的路径
           saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
           emoji: true,
           theme: "light",//工具栏主题
@@ -124,16 +129,8 @@
             releaseIcon : function(){
               var title = $('#solution_title').val();
               var context = $('#solution_context').text();
-              if(title == "" && context == ""){
+              if(title == "标题" && context == "题解"){
                 return;
-              }
-              if(title == ""){
-                var el = document.getElementById("solution_title");
-                el.value = "未命名";
-              }
-              if(context == ""){
-                var el = document.getElementById("solution_context");
-                el.textContent = "未总结";
               }
               solutionForm.method = "post";
               solutionForm.action = "/solution/insert";
@@ -147,18 +144,14 @@
         function saveSolution(){
         var title = $('#solution_title').val();
         var context = $('#solution_context').text();
-        if(title == "" && context == ""){
+        var alias = $('#alias').val();
+        if(title == "标题" && context == "题解" && alias == "起个别名"){
           return;
-        }
-        if(title == ""){
-          title = "未名题";
-        }
-        if(context == ""){
-          context = "未总结";
         }
         var problem_id = $('#problem_id').val();
         data = {
           "title": title,
+          "alias": alias,
           "context": context,
           "problem_id": problem_id
         };

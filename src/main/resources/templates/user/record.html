@@ -29,6 +29,7 @@
                                     <thead>
                                         <tr>
                                             <th>Title</th>
+                                            <th>Alias</th>
                                             <th>Difficulty</th>
                                             <th>Submit Time</th>
                                             <th>Summary</th>
@@ -39,6 +40,7 @@
                                             <td>
                                                 <a th:text="${pu.title}" target="_blank" th:href="${pu.url}"></a>
                                             </td>
+                                            <td th:text="${pu.alias} eq null ? '无' : ${pu.alias}"></td>
                                             <td th:if="${pu.difficulty} eq 'Medium'" class="bg-warning">Medium</td>
                                             <td th:if="${pu.difficulty} eq 'Hard'" class="bg-danger">Hard</td>
                                             <td th:if="${pu.difficulty} eq 'Easy'" class="bg-success">Easy</td>
@@ -47,8 +49,9 @@
                                             <td th:if="${pu.difficulty} eq 'EASY'" class="bg-success">Easy</td>
                                             <td th:text="${pu.submit_time}" class="text-center"></td>
                                             <td class="text-center">
-                                                <a th:href="@{'/editor/' + ${pu.problem_id}}" target="_blank">去总结</a>
-                                                <a th:if="${pu.solution_id}" class="text-success" th:href="@{'/solution/' + ${pu.solution_id}}" target="_blank">去复习</a>
+                                                <a th:href="@{'/solution/editor/' + ${pu.problem_id}}" target="_blank">去总结</a>
+                                                <a th:if="${pu.solution_id} and ${pu.solution_id} ne -1" class="text-success" th:href="@{'/solution/' + ${pu.solution_id}}" target="_blank">去复习</a>
+                                                <i th:if="${pu.solution_id} and ${pu.solution_id} eq -1" class="text-warning">DRAFT</i>
                                             </td>
                                         </tr>
                                     </tbody>

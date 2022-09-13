@@ -28,4 +28,10 @@ public interface ProToUserMapper {
     })
     List<ProToUser> selectAllByUser(int user_id);
 
+    @Select("select alias from protouser where user_id=#{user_id} and problem_id=#{problem_id}")
+    String selectAliasById(int user_id, int problem_id);
+
+    @Update("update protouser set alias=#{alias} where user_id=#{user_id} and problem_id=#{problem_id}")
+    int updateAlias(int user_id, int problem_id, String alias);
+
 }

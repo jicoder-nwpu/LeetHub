@@ -18,4 +18,8 @@ public interface ProToUserService {
 
     List<Record> getAllRecord(List<ProToUser> list, int user_id);
 
+    String selectAliasById(int user_id, int problem_id);
+
+    int updateAlias(int user_id, int problem_id, String alias);
+
 }
