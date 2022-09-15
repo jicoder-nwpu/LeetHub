@@ -14,4 +14,8 @@ public interface UserService {
 
     int selectDailyPCount(int user_id);
 
+    User getUserByName(String username);
+
+    int inserUser(User user);
+
 }

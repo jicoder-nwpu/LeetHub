@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Register - SB Admin</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <title>Register - LeetHub</title>
+        <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
@@ -20,46 +18,70 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <iframe name="posthere" type="hidden" width=0 height=0></iframe>
+                                        <form id="infoForm" target="posthere">
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="leethub_username" name="username" onblur="checkUsername()" onfocus="updateUsername()" type="text" placeholder="Enter your first name" />
+                                                        <label id="leethub_username_label" for="leethub_username">Leethub 用户名</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
-                                                        <label for="inputFirstName">First name</label>
+                                                        <input class="form-control" id="leethub_password" name="password" onfocus="updatePassword()" onblur="checkPassword1()" type="password" placeholder="Create a password" />
+                                                        <label id="label_leethub_password" for="leethub_password">Leethub Password</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
-                                                        <label for="inputLastName">Last name</label>
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="leethub_password_confirm" onfocus="updatePassword()" onblur="checkPassword()" type="password" placeholder="Confirm password" />
+                                                        <label id="label_leethub_password_confirm" for="leethub_password_confirm">Leethub Confirm Password</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <input class="form-control" id="inputEmail" name="email" onblur="checkEmail()" onfocus="updateEmail()" type="email" placeholder="name@example.com" />
+                                                <label id="label_inputEmail" for="inputEmail">Email address</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-                                                        <label for="inputPassword">Password</label>
+                                                        <input class="form-control" id="leecode_login" type="text" placeholder="account"/>
+                                                        <label for="leecode_login">Leetcode 账号</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                        <label for="inputPasswordConfirm">Confirm Password</label>
+                                                        <input class="form-control" id="leecode_password" type="password" placeholder="password"/>
+                                                        <label for="leecode_password">Leetcode 密码</label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="leetcode_name" type="text"placeholder="name"/>
+                                                        <label for="leetcode_name">Leetcode 昵称下边那行小字</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-grid"><a id="checkbox" class="btn btn-primary btn-block" onclick="check()">点击验证</a></div>
+                                                </div>
+                                            </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">Create Account</a></div>
+                                                <div class="d-grid">
+                                                    <a class="btn btn-primary btn-block" id="createAccount" style="pointer-events: none; background: gray" onclick="submit()">
+                                                        请验证成功后，创建账户
+                                                    </a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                        <div class="small"><a th:href="@{/user/login}">Have an account? Go to login</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +104,222 @@
                 </footer>
             </div>
         </div>
+        <script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
+        <script type="text/javascript" th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
+        <script type="text/javascript">
+            function check(){
+                var login = $('#leecode_login').val()
+                var name = $('#leetcode_name').val()
+                var password = $('#leecode_password').val()
+                var data = {
+                    'login': login,
+                    'password': password,
+                    'name': name
+                }
+                var url = "http://10.68.1.226:5000/check"
+                request(url, data)
+            };
+            function request(url, data){
+                $.ajax({
+                    url:url,
+                    data:data,
+                    type: 'GET',
+                    jsonp: 'callback',
+                    dataType : "jsonp",
+                    contentType:"application/json;charset=UTF-8",
+                    success : function(json){
+                        var res = json['msg']
+                        if(res == 'ok'){
+                            successCheck();
+                        }else{
+                            failCheck();
+                        }
+                    },
+                    error :function (e){
+                        console.log(e)
+                    },
+                    timeout:3000
+                });
+            };
+            function successCheck() {
+                document.getElementById("leecode_login").style.borderColor='green';
+                document.getElementById("leecode_password").style.borderColor='green';
+                document.getElementById("leetcode_name").style.borderColor='green';
+                var checkbox = document.getElementById("checkbox");
+                checkbox.textContent = "验证成功";
+                checkbox.style.background = 'green';
+                var createAccount = document.getElementById("createAccount");
+                createAccount.textContent = "Create Account";
+                createAccount.style.background = "#0D6EFD";
+                createAccount.style.pointerEvents = "auto";
+            };
+            function failCheck() {
+                document.getElementById("leecode_login").style.borderColor='red';
+                document.getElementById("leecode_password").style.borderColor='red';
+                document.getElementById("leetcode_name").style.borderColor='red';
+                var checkbox = document.getElementById("checkbox");
+                checkbox.textContent = "验证失败，请确认信息再次点击";
+                checkbox.style.background = 'orange';
+            };
+            function updateUsername(){
+                document.getElementById("leethub_username_label").textContent = 'Leethub Username';
+                document.getElementById("leethub_username").style.borderColor = '#212529';
+            }
+            function checkUsername(){
+                var leethub_username = document.getElementById("leethub_username");
+                var name = $('#leethub_username').val();
+                if(name == ''){
+                    leethub_username.style.borderColor = 'red';
+                    document.getElementById("leethub_username_label").textContent = '用户名不能为空';
+                }else{
+                    data = {
+                        "username": name
+                    };
+                    checkRequest("/user/check", data);
+                }
+            }
+            function checkRequest(url, data){
+                $.ajax({
+                    url: url,
+                    data: JSON.stringify(data),
+                    type: 'POST',
+                    dataType : "json",
+                    contentType:"application/json;charset=UTF-8",
+                    success : function(json){
+                        if(json['status'] == -1){
+                            document.getElementById("leethub_username").style.borderColor = 'red';
+                            document.getElementById("leethub_username_label").textContent = '用户名已存在';
+                        }else{
+                            document.getElementById("leethub_username").style.borderColor = 'green';
+                        }
+                    },
+                    error :function (e){
+                        console.log(e)
+                    }
+                });
+            };
+            function checkPassword() {
+                var box1 = document.getElementById("leethub_password");
+                var box2 = document.getElementById("leethub_password_confirm");
+                var password1 = $('#leethub_password').val()
+                var password2 = $('#leethub_password_confirm').val()
+                if(password2 == "" || password1 != password2){
+                    box1.style.borderColor = 'red';
+                    box2.style.borderColor = 'red';
+                    if(password2 == ""){
+                        document.getElementById("label_leethub_password_confirm").textContent = "密码不能为空";
+                    }else{
+                        document.getElementById("label_leethub_password_confirm").textContent = "两次密码必须一致";
+                    }
+                }else if(password2.length < 6){
+                    box1.style.borderColor = 'red';
+                    box2.style.borderColor = 'red';
+                    document.getElementById("label_leethub_password_confirm").textContent = "密码需要大于等于6位";
+                }else{
+                    box1.style.borderColor = 'green';
+                    box2.style.borderColor = 'green';
+                }
+            };
+            function checkPassword1() {
+                var box1 = document.getElementById("leethub_password");
+                var box2 = document.getElementById("leethub_password_confirm");
+                var password1 = $('#leethub_password').val()
+                var password2 = $('#leethub_password_confirm').val()
+                if(password2 != "" && password1 == password2){
+                    box1.style.borderColor = 'green';
+                    box2.style.borderColor = 'green';
+                }else if(password2 != ""){
+                    box1.style.borderColor = 'red';
+                    box2.style.borderColor = 'red';
+                    document.getElementById("label_leethub_password").textContent = "两次密码必须一致";
+                }
+            };
+            function updatePassword(){
+                document.getElementById("leethub_password").style.borderColor = '#212529';
+                document.getElementById("leethub_password_confirm").style.borderColor = '#212529';
+                document.getElementById("label_leethub_password").textContent = "Leethub Password";
+                document.getElementById("label_leethub_password_confirm").textContent = "Leethub Confirm Password";
+            };
+            function updateEmail() {
+                document.getElementById("inputEmail").style.borderColor = '#212529';
+                document.getElementById("label_inputEmail").textContent = "Email Address";
+            };
+            function checkEmail(){
+                var inputEmail = document.getElementById("inputEmail");
+                var label = document.getElementById("label_inputEmail");
+                var email = $('#inputEmail').val();
+                if(email == ""){
+                    inputEmail.style.borderColor = 'red';
+                    label.textContent = "邮箱不能为空";
+                }else{
+                    let reg = /^[a-zA-Z0-9]+([-_.][A-Za-zd]+)*@([a-zA-Z0-9]+[-.])+[A-Za-zd]{2,5}$/;
+                    if(reg.test(email)){
+                        inputEmail.style.borderColor = 'green';
+                    }else{
+                        inputEmail.style.borderColor = 'red';
+                        label.textContent = "邮箱格式不正确";
+                    }
+                }
+            };
+            function submit(){
+                if(document.getElementById("leethub_username").style.borderColor != 'green'
+                || document.getElementById("leethub_password").style.borderColor != 'green'
+                    || document.getElementById("inputEmail").style.borderColor  != 'green'
+                    || document.getElementById("leecode_login").style.borderColor  != 'green'
+                    || document.getElementById("leetcode_name").style.borderColor  != 'green'
+                    || document.getElementById("leecode_password").style.borderColor  != 'green'
+                ){
+                    var createAccount = document.getElementById("createAccount");
+                    createAccount.textContent = "请完善信息后再点击提交";
+                    createAccount.style.background = "orange";
+                    // createAccount.style.background = "#0D6EFD";
+                }else{
+                    document.getElementById("createAccount").innerHTML = "<span id=\"spinner\" class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>正在爬取Leetcode数据";
+                    infoForm.method = "post";
+                    infoForm.action = "/logup";
+                    infoForm.submit();
+                    adduser();
+                }
+            };
+            function adduser() {
+                var url = "http://10.68.1.226:5000/adduser";
+                var login = $('#leecode_login').val();
+                var codename = $('#leetcode_name').val();
+                var code_password = $('#leecode_password').val();
+                var username = $('#leethub_username').val();
+                var hub_password = $('#leethub_password').val();
+                var data = {
+                    "username": username,
+                    "hub_password": hub_password,
+                    "codename": codename,
+                    'login': login,
+                    'code_password': code_password
+                }
+                add_user_request(url, data);
+            };
+            function add_user_request(url, data){
+                $.ajax({
+                    url:url,
+                    data:data,
+                    type: 'GET',
+                    jsonp: 'callback',
+                    dataType : "jsonp",
+                    async: false,
+                    contentType:"application/json;charset=UTF-8",
+                    success : function(json){
+                        console.log(json)
+                        if(json['msg'] == 'ok'){
+                            window.location.replace("/user")
+                        }
+                    },
+                    error :function (e){
+                        console.log(e)
+                    },
+                    timeout:3000
+                });
+            };
+        </script>
     </body>
 </html>

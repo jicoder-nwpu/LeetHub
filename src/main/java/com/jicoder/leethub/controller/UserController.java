@@ -3,6 +3,7 @@ package com.jicoder.leethub.controller;
 import com.alibaba.fastjson.JSON;
 import com.jicoder.leethub.pojo.*;
 import com.jicoder.leethub.service.*;
+import com.jicoder.leethub.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,6 +109,18 @@ public class UserController {
     @GetMapping("/info")
     public User getUserInfo(HttpSession session){
         return (User) session.getAttribute("user");
+    }
+
+    @ResponseBody
+    @PostMapping("/check")
+    public ResponseResult checkUsername(@RequestBody Map params){
+        String username = (String) params.get("username");
+        User user = userService.getUserByName(username);
+        if(user == null){
+            return new ResponseResult(200, 1, "ok");
+        }else{
+            return new ResponseResult(200, -1, "no");
+        }
     }
 
 }

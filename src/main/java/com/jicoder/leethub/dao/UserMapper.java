@@ -1,9 +1,9 @@
 package com.jicoder.leethub.dao;
 
 import com.jicoder.leethub.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.sql.Timestamp;
 
 @Mapper
 public interface UserMapper {
@@ -19,5 +19,13 @@ public interface UserMapper {
 
     @Update("update user set dailyp_count=#{dailyp_count} where user_id=#{user_id}")
     int updateDailyPCount(int user_id, int dailyp_count);
+
+    @Select("select * from user where username=#{username}")
+    User getUserByName(String username);
+
+    @Insert("insert into user (username, password, signup_time, dailyp_count, email)" +
+            " values (#{username}, #{password}, #{signup_time}, #{dailyp_count}, #{email})")
+    @Options(useGeneratedKeys = true, keyProperty = "user_id", keyColumn = "user_id")
+    int insertUser(User user);
 
 }

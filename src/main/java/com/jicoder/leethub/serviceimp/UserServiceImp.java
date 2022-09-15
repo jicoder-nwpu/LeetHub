@@ -40,4 +40,14 @@ public class UserServiceImp implements UserService {
         return res;
     }
 
+    @Override
+    public User getUserByName(String username) {
+        return userMapper.getUserByName(username);
+    }
+
+    @Override
+    public int inserUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
 }
