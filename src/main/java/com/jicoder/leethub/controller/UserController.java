@@ -100,7 +100,8 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(){
+    public String profile(HttpSession session, Model model){
+        model.addAttribute("user", session.getAttribute("user"));
         return "user/setting";
     }
 
