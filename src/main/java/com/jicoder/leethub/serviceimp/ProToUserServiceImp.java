@@ -8,6 +8,7 @@ import com.jicoder.leethub.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,15 @@ public class ProToUserServiceImp implements ProToUserService {
 
     @Override
     public int insertPU(ProToUser proToUser) {
-        return proToUserMapper.insertPU(proToUser);
+        if(proToUserMapper.selectPUByUserAndProblem(proToUser.getProblem(), proToUser.getUser()) != null){
+            proToUserMapper.update(proToUser);
+            if(proToUserMapper.selectPUToday(proToUser.getUser().getUser_id(), proToUser.getProblem().getProblem_id(), new Timestamp(Utils.getStartOfToday())) != null){
+                return 0;
+            }
+            return 1;
+        }
+        proToUserMapper.insertPU(proToUser);
+        return 1;
     }
 
     public boolean hasDailyProblemRecord(Problem problem, User user){

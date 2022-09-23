@@ -34,4 +34,10 @@ public interface ProToUserMapper {
     @Update("update protouser set alias=#{alias} where user_id=#{user_id} and problem_id=#{problem_id}")
     int updateAlias(int user_id, int problem_id, String alias);
 
+    @Update("update protouser set submit_time=#{submit_time} where user_id=#{user.user_id} and problem_id=#{problem.problem_id}")
+    int update(ProToUser pu);
+
+    @Select("select * from protouser where user_id=#{user_id} and problem_id=#{problem_id} and submit_time >= #{submit_time}")
+    ProToUser selectPUToday(int user_id, int problem_id, Timestamp submit_time);
+
 }

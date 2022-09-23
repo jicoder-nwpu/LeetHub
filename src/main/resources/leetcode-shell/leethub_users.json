@@ -10,28 +10,6 @@
                 "password": "jhr199901175"
             },
             "codename": "jicoder"
-        },
-        {
-            "leethub": {
-                "username": "gaotao",
-                "password": "123456"
-            },
-            "leetcode": {
-                "login": "17795833224",
-                "password": "abjdh156423"
-            },
-            "codename": "gaotao"
-        },
-        {
-            "leethub": {
-                "username": "tanwq",
-                "password": "123456"
-            },
-            "leetcode": {
-                "login": "18292872028",
-                "password": "twq19981220"
-            },
-            "codename": "gracious-i3org1wt"
         }
     ]
 }

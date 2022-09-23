@@ -18,19 +18,12 @@ def getDailyProblemRecord(leetcode_client, leethub_client, last_record_time):
 
         if not update_date:
             update_date = formateDate(record['lastSubmittedAt'])
-        elif formateDate(record['lastSubmittedAt']) != update_date:
+        elif formateDate(record['lastSubmittedAt']) != update_date:   #不同天的提交记录
             update_count(leethub_client, user['username'], update_date, easy, medium, hard)
             update_date = formateDate(record['lastSubmittedAt'])
             easy = 0
             medium = 0
             hard = 0
-        
-        if record['difficulty'] == 'EASY':
-            easy += 1
-        elif record['difficulty'] == 'MEDIUM':
-            medium += 1
-        elif record['difficulty'] == 'HARD':
-            hard += 1
         
         problem = {}
         problem['title'] = record['translatedTitle']
@@ -52,6 +45,13 @@ def getDailyProblemRecord(leetcode_client, leethub_client, last_record_time):
         ptu['submit_time'] = formateTime(record['lastSubmittedAt'])
 
         res = post(leethub_client, leethub_ptu_insert_url, leethub_headers, ptu)
+        if res == 1:
+            if record['difficulty'] == 'EASY':
+                easy += 1
+            elif record['difficulty'] == 'MEDIUM':
+                medium += 1
+            elif record['difficulty'] == 'HARD':
+                hard += 1
         log('insert ptu ' + record['translatedTitle'] + ' ' + ptu['user']['username'], str(res) if type(res) == int else str(res['status']))
 
     if not update_date:

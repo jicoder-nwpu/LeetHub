@@ -2,6 +2,7 @@ package com.jicoder.leethub.utils;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +36,14 @@ public class Utils {
         return false;
     }
 
+    public static long getStartOfToday() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long todayZero = calendar.getTimeInMillis();
+        return todayZero;
+    }
 
 }
