@@ -9,64 +9,67 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="/md/css/editormd.preview.css" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand">Start LeetHub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <header th:replace="nav_bar.html"></header>
-            </div>
-        </nav>
+        <header th:replace="header.html"></header>
         <!-- Page content-->
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <header>
-                            <div class="d-flex align-items-center">
-                                <h1 th:text="${experience.title} + '  -'"></h1>
-                                <div class="ms-2">
-                                    <span class="badge bg-danger rounded-pill" th:if="${experience.label} eq '算法模板'" th:text="${experience.label}"></span>
-                                    <span class="badge bg-success rounded-pill" th:if="${experience.label} eq '框架技巧'" th:text="${experience.label}"></span>
-                                </div>
-                            </div>
-                            <div class="ms-5">
-                                <div th:text="'发布于：' + ${experience.update_time}"></div>
-                                <div class="d-flex">
-                                    <div class="me-4" th:text="'作者：' + ${user}"></div>
-                                    <a th:href="'/experience/editor/' + ${experience.experience_id}" target="_blank">去编辑</a>
-                                </div>
-                            </div>
-                        </header>
-                        <div id="editormd-view">
-                            <hr />
-                            <textarea style="display:none;" th:text="${experience.content}"></textarea>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-lg-4">
-                    <!-- Side widget-->
-                    <div class="card mb-4">
-                        <div style="flex: 1 1 auto; padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03);">最近的总结</div>
-                        <div th:if="${experiences}" th:each="e:${experiences}">
-                            <div class="position-relative">
-                                <a th:href="'/experience/' + ${e.experience_id}" class="stretched-link"></a>
-                                <div style="border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); padding: 0.5rem 1rem; background-color: #fff; border-top: 1px solid rgba(0, 0, 0, 0.125);">
-                                    <div class="d-flex">
-                                        <div>
-                                            <span class="badge bg-danger rounded-pill" th:if="${e.label} eq '算法模板'" th:text="${e.label}"></span>
-                                            <span class="badge bg-success rounded-pill" th:if="${e.label} eq '框架技巧'" th:text="${e.label}"></span>
+        <div id="layoutSidenav">
+            <aside th:replace="aside.html"></aside>
+            <div id="layoutSidenav_content">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Post content-->
+                            <article>
+                                <header>
+                                    <div class="d-flex align-items-center">
+                                        <h1 th:text="${experience.title}"></h1>
+                                        <div class="ms-2">
+                                            <span class="badge bg-danger rounded-pill" th:if="${experience.label} eq '算法模板'" th:text="${experience.label}"></span>
+                                            <span class="badge bg-success rounded-pill" th:if="${experience.label} eq '框架技巧'" th:text="${experience.label}"></span>
+                                            <span class="badge bg-primary rounded-pill" th:if="${experience.label} eq '总结梳理'" th:text="${experience.label}"></span>
                                         </div>
-                                        <h7 class="ms-2" th:text="${e.title}"></h7>
+                                    </div>
+                                    <div class="ms-5">
+                                        <div th:text="'发布于：' + ${experience.update_time}"></div>
+                                        <div class="d-flex">
+                                            <div class="me-4" th:text="'作者：' + ${user}"></div>
+                                            <a th:href="'/experience/editor/' + ${experience.experience_id}" target="_blank">去编辑</a>
+                                        </div>
+                                    </div>
+                                </header>
+                                <div id="editormd-view">
+                                    <hr />
+                                    <textarea style="display:none;" th:text="${experience.content}"></textarea>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- Side widget-->
+                            <div class="card mb-4">
+                                <div style="flex: 1 1 auto; padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03);">最近的总结</div>
+                                <div th:if="${experiences}" th:each="e:${experiences}">
+                                    <div class="position-relative">
+                                        <a th:href="'/experience/' + ${e.experience_id}" class="stretched-link"></a>
+                                        <div style="border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); padding: 0.5rem 1rem; background-color: #fff; border-top: 1px solid rgba(0, 0, 0, 0.125);">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <span class="badge bg-danger rounded-pill" th:if="${e.label} eq '算法模板'" th:text="${e.label}"></span>
+                                                    <span class="badge bg-success rounded-pill" th:if="${e.label} eq '框架技巧'" th:text="${e.label}"></span>
+                                                    <span class="badge bg-primary rounded-pill" th:if="${e.label} eq '总结梳理'" th:text="${e.label}"></span>
+                                                </div>
+                                                <h7 class="ms-2" th:text="${e.title}"></h7>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="card-body" th:if="not ${experiences}">
+                                    没有更多总结
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body" th:if="not ${experiences}">
-                            没有更多总结
                         </div>
                     </div>
                 </div>

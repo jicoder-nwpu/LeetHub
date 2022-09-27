@@ -8,61 +8,62 @@
         <link rel="icon" type="image/x-icon" href="" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand">Start LeetHub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <header th:replace="nav_bar.html"></header>
-            </div>
-        </nav>
+        <header th:replace="header.html"></header>
         <!-- Page content-->
-        <div class="container mt-5">
-            <div th:if="not ${solutions}" class="d-flex justify-content-center align-items-center">
-                <div class="card" style="width: 24rem;">
-                    <img src="/assets/img/null.png" class="card-img-top">
-                </div>
-            </div>
-            <div th:if="${solutions}" class="row">
-                <div class="col-lg-8">
-                    <div th:each="solution:${solutions}">
-                        <!-- Post content-->
-                        <div class="position-relative">
-                            <a th:if="${solution.type} eq 1" th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
-                            <a th:if="${solution.type} eq 0" th:href="'/solution/editor/' + ${solution.problem.problem_id}" class="stretched-link"></a>
-                            <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem;" class="d-flex align-items-center mt-2">
-                                <div>
-                                    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
-                                    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
-                                    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
-                                    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
-                                    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
-                                    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
-                                </div>
-                                <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
-                                <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>
-                                <div class="ms-5" th:text="${solution.update_time}"></div>
-                                <i class="ms-5 text-info" style="font-size: 16px" th:if="${solution.type} eq 0">DRAFT</i>
-                            </div>
+        <div id="layoutSidenav">
+            <aside th:replace="aside.html"></aside>
+            <div id="layoutSidenav_content">
+                <div class="container mt-5">
+                    <div th:if="not ${solutions}" class="d-flex justify-content-center align-items-center">
+                        <div class="card" style="width: 24rem;">
+                            <img src="/assets/img/null.png" class="card-img-top">
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <!-- Categories widget-->
-                    <div class="card mb-4 mt-2">
-                        <div class="card-header">Tags</div>
-                        <div class="card-body">
-                            <div th:if="${tags}" class="container">
-                                <div class="row row-cols-3">
-                                    <div th:each="tag:${tags}">
-                                        <a href="" th:text="${tag.name} + '(' + ${tag.count} + ')'"></a>
+                    <div th:if="${solutions}" class="row">
+                        <div class="col-lg-8">
+                            <div th:each="solution:${solutions}">
+                                <!-- Post content-->
+                                <div class="position-relative">
+                                    <a th:if="${solution.type} eq 1" th:href="'/solution/' + ${solution.solution_id}" class="stretched-link"></a>
+                                    <a th:if="${solution.type} eq 0" th:href="'/solution/editor/' + ${solution.problem.problem_id}" class="stretched-link"></a>
+                                    <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem;" class="d-flex align-items-center mt-2">
+                                        <div>
+                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
+                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
+                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
+                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
+                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
+                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
+                                        </div>
+                                        <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
+                                        <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>
+                                        <div class="ms-5" th:text="${solution.update_time}"></div>
+                                        <i class="ms-5 text-info" style="font-size: 16px" th:if="${solution.type} eq 0">DRAFT</i>
                                     </div>
                                 </div>
                             </div>
-                            <div th:if="not ${tags}" class="d-flex justify-content-center">
-                                <a th:href="@{/tag}">Manage Tags</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- Categories widget-->
+                            <div class="card mb-4 mt-2">
+                                <div class="card-header">Tags</div>
+                                <div class="card-body">
+                                    <div th:if="${tags}" class="container">
+                                        <div class="row row-cols-3">
+                                            <div th:each="tag:${tags}">
+                                                <a href="" th:text="${tag.name} + '(' + ${tag.count} + ')'"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="not ${tags}" class="d-flex justify-content-center">
+                                        <a th:href="@{/tag}">Manage Tags</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

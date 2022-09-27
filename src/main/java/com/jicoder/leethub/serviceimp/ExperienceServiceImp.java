@@ -26,6 +26,7 @@ public class ExperienceServiceImp implements ExperienceService {
         List<String> labels = new ArrayList<>();
         labels.add("算法模板");
         labels.add("框架技巧");
+        labels.add("总结梳理");
         return labels;
     }
 

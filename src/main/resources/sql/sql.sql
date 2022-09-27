@@ -49,4 +49,4 @@ delete from solution where user_id = 14;
 delete from score where user_id = 14;
 delete from user where user_id=13;
 delete from tag where tag_id=15;
-truncate table experience;
+truncate table solution;
