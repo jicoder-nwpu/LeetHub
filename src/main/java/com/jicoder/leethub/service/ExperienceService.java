@@ -15,4 +15,8 @@ public interface ExperienceService {
 
     int update(Experience experience);
 
+    List<Experience> getAll(int user_id);
+
+    List<Experience> getRecent(int user_id, int experience_id);
+
 }

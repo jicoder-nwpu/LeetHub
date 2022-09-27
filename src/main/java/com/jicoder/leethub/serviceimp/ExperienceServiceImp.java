@@ -39,4 +39,14 @@ public class ExperienceServiceImp implements ExperienceService {
         return experienceMapper.update(experience);
     }
 
+    @Override
+    public List<Experience> getAll(int user_id) {
+        return experienceMapper.getAll(user_id);
+    }
+
+    @Override
+    public List<Experience> getRecent(int user_id, int experience_id) {
+        return experienceMapper.getRecent(user_id, experience_id);
+    }
+
 }

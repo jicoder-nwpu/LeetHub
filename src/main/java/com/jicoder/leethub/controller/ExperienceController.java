@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,8 +26,20 @@ public class ExperienceController {
         return "experience/editor";
     }
 
-    @GetMapping("/{experience_id}")
-    public String detail(@PathVariable int experience_id,
+    @GetMapping("/all")
+    public String all(Model model,
+                      HttpSession session){
+        User user = (User) session.getAttribute("user");
+        List<Experience> list = experienceService.getAll(user.getUser_id());
+        if(list.size() > 0){
+            model.addAttribute("experiences", experienceService.getAll(user.getUser_id()));
+        }
+        model.addAttribute("labels", experienceService.getLabels());
+        return "experience/all";
+    }
+
+    @GetMapping("/editor/{experience_id}")
+    public String editor(@PathVariable int experience_id,
                          Model model){
         Experience experience = experienceService.getById(experience_id);
         if(experience == null){
@@ -38,9 +51,26 @@ public class ExperienceController {
         return "experience/editor";
     }
 
-    @ResponseBody
+    @GetMapping("/{experience_id}")
+    public String show(@PathVariable int experience_id,
+                         Model model,
+                         HttpSession session){
+        Experience experience = experienceService.getById(experience_id);
+        if(experience == null){
+            return "error/404";
+        }
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user.getUsername());
+        model.addAttribute("experience", experience);
+        List<Experience> list = experienceService.getRecent(user.getUser_id(), experience_id);
+        if(list.size() > 0){
+            model.addAttribute("experiences", list);
+        }
+        return "experience/detail";
+    }
+
     @PostMapping("/insert")
-    public int insert(@RequestParam("title") String title,
+    public String insert(@RequestParam("title") String title,
                       @RequestParam("content") String content,
                       @RequestParam("label") String label,
                       @RequestParam("experience_id") int experience_id,
@@ -49,20 +79,22 @@ public class ExperienceController {
         int res = -1;
         Experience experience = new Experience(title, content, label, user, Experience.EXPERIENCE_TYPE_RELEASE);
         if(experience_id == Experience.EXPERIENCE_ID_NULL){
-            res = experienceService.insert(experience);
+            experienceService.insert(experience);
+            res = experience.getExperience_id();
         }else{
             Experience old_experience = experienceService.getById(experience_id);
             if(old_experience.equals(experience)){
-                res = 1;
+                res = old_experience.getExperience_id();
             }else{
                 old_experience.setTitle(title);
                 old_experience.setContent(content);
                 old_experience.setLabel(label);
                 old_experience.setType(Experience.EXPERIENCE_TYPE_RELEASE);
-                res = experienceService.update(old_experience);
+                experienceService.update(old_experience);
+                res = old_experience.getExperience_id();
             }
         }
-        return res;
+        return "redirect:/experience/" + res;
     }
 
     @ResponseBody

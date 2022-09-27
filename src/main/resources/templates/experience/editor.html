@@ -23,9 +23,10 @@
                     </div>
                     <select th:id="label_selector" name="label" onfocus="updateSelect()" onblur="checkSelect()" class="form-select" style="border-color: #0d6efd; width:20%;">
                         <div th:each="label:${labels}">
-                            <option th:value="${label}" th:text="${label}"></option>
+                            <option th:if="not ${experience} or ${experience.label} ne ${label}" th:value="${label}" th:text="${label}"></option>
                         </div>
-                        <option value="-1" selected>选择标签</option>
+                        <option th:if="${experience}" th:value="${experience.label}" th:text="${experience.label}" selected></option>
+                        <option th:if="not ${experience}" value="-1" selected>选择标签</option>
                     </select>
                 </div>
                 <div id="test-editormd">

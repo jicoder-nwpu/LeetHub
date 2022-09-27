@@ -3,7 +3,7 @@ spring:
     username: root
     password: 123456
     #?serverTimezone=UTC???????
-    url: jdbc:mysql://10.70.178.114:3306/leethub?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://10.70.178.114:3306/leethub?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
