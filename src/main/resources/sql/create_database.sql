@@ -91,3 +91,15 @@ CREATE TABLE IF NOT EXISTS `ProToUser`(
    foreign key(`user_id`) references User(`user_id`),
    foreign key(`problem_id`) references Problem(`problem_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `Experience`(
+   `experience_id` INT UNSIGNED AUTO_INCREMENT,
+   `title` VARCHAR(30) UNIQUE NOT NULL,
+   `content` TEXT NOT NULL,
+   `update_time` timestamp default current_timestamp on update current_timestamp,
+   `user_id` INT UNSIGNED NOT NULL,
+   `label` VARCHAR(20),
+   `type` TINYINT,
+   PRIMARY KEY ( `experience_id` ),
+   foreign key(`user_id`) references User(`user_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

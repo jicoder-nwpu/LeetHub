@@ -14,6 +14,7 @@ select * from solution;
 select * from leetrank order by rank_id desc limit 30;
 select * from protouser where problem_id = 34;
 select * from protouser where problem_id = 106 and user_id = 1 and submit_time > '2022-09-22';
+select * from experience;
 
 alter table problem modify column url varchar(100);
 alter table score modify column description varchar(400);
@@ -48,4 +49,4 @@ delete from solution where user_id = 14;
 delete from score where user_id = 14;
 delete from user where user_id=13;
 delete from tag where tag_id=15;
-truncate table tag;
+truncate table experience;

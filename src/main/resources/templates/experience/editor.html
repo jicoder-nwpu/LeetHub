@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>LeetHub</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/md/css/editormd.css" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand">Start LeetHub</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <header th:replace="nav_bar.html"></header>
+            </div>
+        </nav>
+        <div class="container mt-5">
+            <form id="solutionForm" name="solutionForm">
+                <div class="d-flex mb-3" style="width: 90%; margin-left: 5%; margin-right: 5%">
+                    <div class="me-auto" style="width: 70%">
+                        <input id="experience_title" type="" class="form-control" onblur="check('experience_title')" onfocus="update('experience_title')" style="border-color: #0d6efd;" name="title" th:value="${experience} ? ${experience.title} : '标题'">
+                    </div>
+                    <select th:id="label_selector" name="label" onfocus="updateSelect()" onblur="checkSelect()" class="form-select" style="border-color: #0d6efd; width:20%;">
+                        <div th:each="label:${labels}">
+                            <option th:value="${label}" th:text="${label}"></option>
+                        </div>
+                        <option value="-1" selected>选择标签</option>
+                    </select>
+                </div>
+                <div id="test-editormd">
+                    <textarea id="experience_content" name="content" style="display:none;" th:text="${experience} ? ${experience.content} : ''"></textarea>
+                </div>
+                <input id="experience_id" type="hidden" class="form-control" name="experience_id"  th:value="${id}">
+            </form>
+        </div>
+        <script th:src="@{/webjars/jquery/2.1.0/dist/jquery.js}"></script>
+        <script src="/md/editormd.js"></script>
+        <script type="text/javascript">
+            var testEditor;
+            
+            $(function() {    
+                // You can custom @link base url.
+                editormd.urls.atLinkBase = "https://github.com/";
+                
+                testEditor = editormd("test-editormd", {
+                    width     : "90%",
+                    height    : 720,
+                    toc       : true,
+                    //atLink    : false,    // disable @link
+                    //emailLink : false,    // disable email address auto link
+                    path      : '/md/lib/',
+                    /*指定需要显示的功能按钮*/
+                    toolbarIcons : function() {
+                        return ["undo","redo","|",
+                            "bold","del","italic","|",
+                            "h1","h2","h3","h4","h5","h6","|",
+                            "list-ul","list-ol","hr","|",
+                            "link","reference-link","image","code","preformatted-text",
+                            "code-block","table","datetime","emoji","html-entities","pagebreak","fullscreen","|",
+                            "watch","preview","clear","search","|", "saveIcon","releaseIcon",
+                        ]
+                    },
+
+                    toolbarIconsClass  : {
+                        saveIcon : "fa-save",
+                        releaseIcon : "fa-upload"
+                    },
+
+                    /*给自定义按钮指定回调函数*/
+                    toolbarHandlers:{
+                        saveIcon : function (){
+                            saveSolution();
+                        },
+                        releaseIcon : function(){
+                            var title = $('#experience_title').val();
+                            if(title == '' || title == '标题'){
+                                document.getElementById("experience_title").style.borderColor = 'red';
+                                return;
+                            }
+                            var content = $('#experience_content').text();
+                            if(content == ""){
+                                document.getElementById("experience_content").style.borderColor = 'red';
+                                return;
+                            }
+                            var label = $('#label_selector').val();
+                            if(label == -1){
+                                document.getElementById("label_selector").style.borderColor = 'red';
+                                return;
+                            }
+                            var experience_id = $('#experience_id').val();
+                            solutionForm.method = "post";
+                            solutionForm.action = "/experience/insert";
+                            solutionForm.submit();
+                        },
+                    }
+                });
+            });
+        </script>
+        <script>
+            function updateSelect(){
+                document.getElementById("label_selector").style.borderColor = "#0d6efd";
+            };
+            function checkSelect(){
+                if($('#label_selector').val() == -1){
+                    document.getElementById("label_selector").style.borderColor = "red";
+                }else{
+                    document.getElementById("label_selector").style.borderColor = "green";
+                }
+            }
+            function update(id){
+                document.getElementById(id).style.borderColor = "#0d6efd";
+            };
+            function check(id){
+                if($('#' + id).val() == "" || $('#' + id).val() == "标题"){
+                    document.getElementById(id).style.borderColor = "red";
+                }else{
+                    document.getElementById(id).style.borderColor = "green";
+                }
+            }
+            function saveSolution(){
+                var title = $('#experience_title').val();
+                if(title == '' || title == '标题'){
+                    document.getElementById("experience_title").style.borderColor = 'red';
+                    return;
+                }
+                var content = $('#experience_content').text();
+                if(content == ""){
+                    document.getElementById("experience_content").style.borderColor = 'red';
+                    return;
+                }
+                var label = $('#label_selector').val();
+                if(label == -1){
+                    document.getElementById("label_selector").style.borderColor = 'red';
+                    return;
+                }
+                var experience_id = $('#experience_id').val();
+                data = {
+                    "title": title,
+                    "content": content,
+                    'label': label,
+                    "experience_id": experience_id
+                };
+                ajaxRequestAlert("/experience/save", "POST", data);
+            };
+            function ajaxRequestAlert(url, type, data) {
+                $.ajax({
+                    url: url,
+                    type: type,  //默认值: "GET"请求方式 ("POST" 或 "GET")
+                    data: JSON.stringify(data),
+                    contentType:"application/json;charset=UTF-8",
+                    async:true,
+                    success: function(data){      // 回调结果，如果成功
+                        if(data != -1){
+                            e_id = document.getElementById("experience_id").value;
+                            if(e_id == -1){
+                                document.getElementById("experience_id").value = data;
+                            }
+                            alert("保存成功");
+                        }else{
+                            alert("保存失败");
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                        alert("标题重复 或 发生错误！");
+                    }
+                })
+            };
+            window.addEventListener('beforeunload', function (e) {
+                saveSolution();
+                e.preventDefault();
+            });
+        </script>
+    </body>
+</html>

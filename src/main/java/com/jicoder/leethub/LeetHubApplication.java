@@ -20,7 +20,7 @@ public class LeetHubApplication implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor)
-                .addPathPatterns("/user/**", "/rank/**", "/score/**", "/tag/**", "/ptt/**", "/pu/**", "/solution/**")
+                .addPathPatterns("/user/**", "/rank/**", "/score/**", "/tag/**", "/ptt/**", "/pu/**", "/solution/**", "/experience/**")
                 .excludePathPatterns("/user/login", "/user/register", "/user/check");
     }
 }
