@@ -43,4 +43,14 @@ public class SolutionServiceImp implements SolutionService {
     public List<Solution> getLatestByUid(int user_id, int solution_id, int count, int type) {
         return solutionMapper.getLatestByUid(user_id, solution_id, count, type);
     }
+
+    @Override
+    public List<Solution> getByName(int user_id, String name) {
+        return solutionMapper.selectByName(user_id, name);
+    }
+
+    @Override
+    public List<Solution> getByTag(int user_id, int tag_id) {
+        return solutionMapper.selectByTag(user_id, tag_id);
+    }
 }

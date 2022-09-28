@@ -126,5 +126,26 @@ public class ExperienceController {
         return res;
     }
 
+    @PostMapping("/searchl")
+    public String searchByLabel(@RequestBody Map params,
+                                HttpSession session,
+                                Model model){
+        User user = (User) session.getAttribute("user");
+        String label = (String) params.get("label");
+        model.addAttribute("experiences", experienceService.getByLabel(user.getUser_id(), label));
+        model.addAttribute("labels", experienceService.getLabels());
+        return "experience/all::show_experiences";
+    }
+
+    @PostMapping("/searchn")
+    public String searchByname(@RequestBody Map params,
+                                HttpSession session,
+                                Model model){
+        User user = (User) session.getAttribute("user");
+        String name = (String) params.get("name");
+        model.addAttribute("experiences", experienceService.getByName(user.getUser_id(), "%" + name + "%"));
+        model.addAttribute("labels", experienceService.getLabels());
+        return "experience/all::show_experiences";
+    }
 
 }

@@ -47,4 +47,18 @@ public interface SolutionMapper {
     })
     List<Solution> getLatestByUid(int user_id, int solution_id, int count, int type);
 
+    @Select("select s.*, p.title as ptitle, p.difficulty from solution s, problem p where s.problem_id=p.problem_id and user_id=#{user_id} and s.title like #{name}")
+    @Results(value = {
+            @Result(column = "ptitle", property = "problem.title"),
+            @Result(column = "difficulty", property = "problem.difficulty")
+    })
+    List<Solution> selectByName(int user_id, String name);
+
+    @Select("select s.*, p.title as ptitle, p.difficulty from solution s, prototag pt, problem p where s.problem_id=p.problem_id and user_id=#{user_id} and s.problem_id=pt.problem_id and tag_id=#{tag_id}")
+    @Results(value = {
+            @Result(column = "ptitle", property = "problem.title"),
+            @Result(column = "difficulty", property = "problem.difficulty")
+    })
+    List<Solution> selectByTag(int user_id, int tag_id);
+
 }

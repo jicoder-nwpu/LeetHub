@@ -25,4 +25,10 @@ public interface ExperienceMapper {
     @Select("select * from experience where user_id=#{user_id} and experience_id!=#{experience_id} and type=1")
     List<Experience> getRecent(int user_id, int experience_id);
 
+    @Select("select * from experience where user_id=#{user_id} and label=#{label}")
+    List<Experience> selectByLabel(int user_id, String label);
+
+    @Select("select * from experience where user_id=#{user_id} and title like #{name}")
+    List<Experience> selectByTitle(int user_id, String name);
+
 }

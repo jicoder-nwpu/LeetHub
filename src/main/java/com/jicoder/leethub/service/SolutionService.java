@@ -18,4 +18,8 @@ public interface SolutionService {
 
     List<Solution> getLatestByUid(int user_id, int solution_id, int count, int type);
 
+    List<Solution> getByName(int user_id, String name);
+
+    List<Solution> getByTag(int user_id, int tag_id);
+
 }

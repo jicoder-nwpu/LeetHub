@@ -50,4 +50,14 @@ public class ExperienceServiceImp implements ExperienceService {
         return experienceMapper.getRecent(user_id, experience_id);
     }
 
+    @Override
+    public List<Experience> getByLabel(int user_id, String label) {
+        return experienceMapper.selectByLabel(user_id, label);
+    }
+
+    @Override
+    public List<Experience> getByName(int user_id, String name) {
+        return experienceMapper.selectByTitle(user_id, name);
+    }
+
 }

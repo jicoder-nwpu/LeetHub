@@ -14,7 +14,7 @@ select * from solution;
 select * from leetrank order by rank_id desc limit 30;
 select * from protouser where problem_id = 34;
 select * from protouser where problem_id = 106 and user_id = 1 and submit_time > '2022-09-22';
-select * from experience;
+select * from solution where title like '%%';
 
 alter table problem modify column url varchar(100);
 alter table score modify column description varchar(400);

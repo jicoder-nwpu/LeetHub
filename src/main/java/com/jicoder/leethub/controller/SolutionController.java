@@ -144,4 +144,38 @@ public class SolutionController {
         return "solution/all";
     }
 
+    @PostMapping("/searchl")
+    public String searchByLabel(@RequestBody Map params,
+                                HttpSession session,
+                                Model model){
+        User user = (User) session.getAttribute("user");
+        int tag_id = Integer.parseInt((String) params.get("tag_id"));
+        List<Solution> solutions = solutionService.getByTag(user.getUser_id(), tag_id);
+        if(solutions.size() > 0){
+            model.addAttribute("solutions", solutions);
+        }
+        List<Tag> tags = tagService.getAllTagsByUserId(user.getUser_id());
+        if(tags.size() > 0){
+            model.addAttribute("tags", tags);
+        }
+        return "solution/all::show_solutions";
+    }
+
+    @PostMapping("/searchn")
+    public String searchByname(@RequestBody Map params,
+                               HttpSession session,
+                               Model model){
+        User user = (User) session.getAttribute("user");
+        String name = (String) params.get("name");
+        List<Solution> solutions = solutionService.getByName(user.getUser_id(), "%" + name + "%");
+        if(solutions.size() > 0){
+            model.addAttribute("solutions", solutions);
+        }
+        List<Tag> tags = tagService.getAllTagsByUserId(user.getUser_id());
+        if(tags.size() > 0){
+            model.addAttribute("tags", tags);
+        }
+        return "solution/all::show_solutions";
+    }
+
 }

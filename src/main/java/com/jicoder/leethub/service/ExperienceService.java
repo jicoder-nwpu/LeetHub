@@ -19,4 +19,8 @@ public interface ExperienceService {
 
     List<Experience> getRecent(int user_id, int experience_id);
 
+    List<Experience> getByLabel(int user_id, String label);
+
+    List<Experience> getByName(int user_id, String name);
+
 }
