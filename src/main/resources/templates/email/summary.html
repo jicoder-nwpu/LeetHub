@@ -1,0 +1,91 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>LeetHub日报</title>
+  <style>
+    .badge {
+      display: inline-block;
+      padding: 0.35em 0.65em;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+    }
+    .mt-5 {
+      margin-top: 3rem !important;
+    }
+    .justify-content-center {
+      justify-content: center !important;
+    }
+    .align-items-center {
+      align-items: center !important;
+    }
+    .position-relative {
+      position: relative !important;
+    }
+    .mt-2 {
+      margin-top: 0.5rem !important;
+    }
+    .bg-warning {
+      --bs-bg-opacity: 1;
+      background-color: yellow;
+    }
+
+    .bg-danger {
+      --bs-bg-opacity: 1;
+      background-color: red;
+    }
+    .bg-success {
+      --bs-bg-opacity: 1;
+      background-color: green;
+    }
+    .ms-2 {
+      margin-left: 0.5rem !important;
+    }
+    .rounded-pill {
+      border-radius: 50rem !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="mt-5">
+    <h4>昨日刷题情况</h4>
+    <hr/>
+    <h6 th:text="'昨日共完成' + ${total} + '题'"></h6>
+    <div th:if="${pnws}" class="justify-content-center align-items-center">
+      <h6>未总结:</h6>
+      <div th:each="p:${pnws}">
+        <!-- Post content-->
+        <div class="position-relative">
+          <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem; display: flex;" class="mt-2">
+            <div>
+              <div th:replace="common/difficulty.html"></div>
+            </div>
+            <h7  th:text="${p.title}"></h7>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div th:if="${pws}" class="justify-content-center align-items-center">
+      <h6>已总结:</h6>
+      <div th:each="p:${pws}">
+        <!-- Post content-->
+        <div class="position-relative">
+          <div style="padding: 1rem 1rem; background-color: rgba(0, 0, 0, 0.03); background-clip: border-box; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0.25rem;" class="d-flex align-items-center mt-2">
+            <div>
+              <div th:replace="common/difficulty.html"></div>
+            </div>
+            <h7 class="ms-2" th:text="${p.title}"></h7>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -7,8 +7,17 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   thymeleaf:
     cache: false
+  mail:
+    host: smtp.163.com
+    username: J18092799036@163.com
+    password: EMUFEHLZKTVXVDGS
+    nickname: LeetHub
+    port: 994
+    protocol: smtps
+    default-encoding: utf-8
 server:
   port: 8080
   servlet:
     session:
       timeout: P1D
+

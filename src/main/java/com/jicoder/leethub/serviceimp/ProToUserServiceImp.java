@@ -78,4 +78,9 @@ public class ProToUserServiceImp implements ProToUserService {
     public int updateAlias(int user_id, int problem_id, String alias) {
         return proToUserMapper.updateAlias(user_id, problem_id, alias);
     }
+
+    @Override
+    public List<Problem> getByDay(int user_id, Timestamp start_time, Timestamp end_time) {
+        return proToUserMapper.selectByDay(user_id, start_time, end_time);
+    }
 }

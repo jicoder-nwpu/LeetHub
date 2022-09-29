@@ -18,4 +18,6 @@ public interface UserService {
 
     int inserUser(User user);
 
+    List<User> getAllUser();
+
 }

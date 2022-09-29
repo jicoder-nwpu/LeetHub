@@ -4,6 +4,7 @@ import com.jicoder.leethub.pojo.User;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -27,5 +28,8 @@ public interface UserMapper {
             " values (#{username}, #{password}, #{signup_time}, #{dailyp_count}, #{email})")
     @Options(useGeneratedKeys = true, keyProperty = "user_id", keyColumn = "user_id")
     int insertUser(User user);
+
+    @Select("select user_id, username, email from user")
+    List<User> selectAllUser();
 
 }

@@ -1,0 +1,8 @@
+<div>
+    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
+    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
+    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
+    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
+    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
+    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
+</div>

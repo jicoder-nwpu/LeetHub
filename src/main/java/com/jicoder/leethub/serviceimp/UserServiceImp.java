@@ -50,4 +50,9 @@ public class UserServiceImp implements UserService {
         return userMapper.insertUser(user);
     }
 
+    @Override
+    public List<User> getAllUser() {
+        return userMapper.selectAllUser();
+    }
+
 }

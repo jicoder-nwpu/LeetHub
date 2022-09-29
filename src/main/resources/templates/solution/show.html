@@ -14,10 +14,10 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <header th:replace="header.html"></header>
+        <header th:replace="common/header.html"></header>
         <!-- Page content-->
         <div id="layoutSidenav">
-            <aside th:replace="aside.html"></aside>
+            <aside th:replace="common/aside.html"></aside>
             <div id="layoutSidenav_content">
                 <div class="container mt-5">
                     <div class="row">
@@ -28,12 +28,7 @@
                                     <div class="d-flex align-items-center">
                                         <h1 th:text="${solution.title} + '  -'"></h1>
                                         <div class="ms-2">
-                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
-                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
-                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
-                                            <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
-                                            <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
-                                            <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
+                                            <div th:replace="common/sdifficulty.html"></div>
                                         </div>
                                         <a class="ms-2" style="font-size: x-large" th:href="${solution.problem.url}" th:text="${solution.problem.title}" target="_blank"></a>
                                     </div>
@@ -62,12 +57,7 @@
                                         <div style="border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); padding: 0.5rem 1rem; background-color: #fff; border-top: 1px solid rgba(0, 0, 0, 0.125);">
                                             <div class="d-flex">
                                                 <div>
-                                                    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'Hard'}">Hard</span>
-                                                    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'Medium'}">Medium</span>
-                                                    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'Easy'}">Easy</span>
-                                                    <span class="badge bg-danger rounded-pill" th:if="${solution.problem.difficulty eq 'HARD'}">Hard</span>
-                                                    <span class="badge bg-warning rounded-pill" th:if="${solution.problem.difficulty eq 'MEDIUM'}">Medium</span>
-                                                    <span class="badge bg-success rounded-pill" th:if="${solution.problem.difficulty eq 'EASY'}">Easy</span>
+                                                    <div th:replace="common/sdifficulty.html"></div>
                                                 </div>
                                                 <h7 class="ms-2" th:text="${solution.problem.title}"></h7>
                                                 <em th:text="${solution.title}" class="ms-5 text-primary text-"></em>

@@ -40,4 +40,7 @@ public interface ProToUserMapper {
     @Select("select * from protouser where user_id=#{user_id} and problem_id=#{problem_id} and submit_time >= #{submit_time}")
     ProToUser selectPUToday(int user_id, int problem_id, Timestamp submit_time);
 
+    @Select("select p.* from protouser pu, problem p where p.problem_id=pu.problem_id and pu.user_id=#{user_id} and submit_time>=#{start_time} and submit_time<#{end_time}")
+    List<Problem> selectByDay(int user_id, Timestamp start_time, Timestamp end_time);
+
 }
