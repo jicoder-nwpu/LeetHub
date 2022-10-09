@@ -2,14 +2,14 @@
     "user": [
         {
             "leethub": {
-                "username": "jicoder",
-                "password": "88888888"
+                "username": "username",
+                "password": "password"
             },
             "leetcode": {
-                "login": "936836692@qq.com",
-                "password": "jhr199901175"
+                "login": "leetcodeaccount",
+                "password": "leetcodepassword"
             },
-            "codename": "jicoder"
+            "codename": "leetcodename"
         }
     ]
 }
