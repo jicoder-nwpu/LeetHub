@@ -13,6 +13,7 @@
 1. python后端
 
 > Flask==2.2.2
+> 
 > requests==2.22.0
 
 2. SpringBoot 后端
@@ -38,16 +39,21 @@
 ###### b 运行jar包
 
 > windows: javaw -jar xxx.jar
+> 
 > linux: nohup java -jar xxx.jar >> log.txt &
 
 ##### 3. 启动flask服务
 
 > ./src/main/resources/leetcode-shell/leethub.py
+> 
 > ./src/main/resources/leetcode-shell/leethub_users.json
+> 
 > ./src/main/resources/leetcode-shell/lastRecordTime.json
+> 
 > linux: 
 >
 > export FLASK_APP=leethub.py
+> 
 > nohup flask run --host=0.0.0.0 >> spider_log.txt &
 
 ##### 4. 部署爬虫脚本
@@ -57,7 +63,9 @@
 > sudo vim /etc/crontab
 >
 > 1  0  * * * user python3 ./leetcode-shell/getDailyProblem.py >> ./leetcode-shell/log.txt
+> 
 > 10 1  * * * user python3 ./leetcode-shell/getLeetCodeRank.py >> ./leetcode-shell/log.txt
+> 
 > 0 0,7-23/1 * * * user python3 ./leetcode-shell/getRecordAndCount.py >> ./leetcode-shell/log.txt
 
 每天0点1分爬取每日一题，1点10分爬取排名，上午7点到晚上0点整点爬取做题记录以及积分信息。
