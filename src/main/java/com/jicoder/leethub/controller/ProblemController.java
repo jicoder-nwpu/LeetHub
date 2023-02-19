@@ -20,7 +20,7 @@ public class ProblemController {
     @PostMapping("/insert")
     public int insertProblem(@RequestBody Problem problem){
         int res = problemService.insertProblem(problem);
-        System.out.println(res);
+//        System.out.println(res);
         return res;
     }
 

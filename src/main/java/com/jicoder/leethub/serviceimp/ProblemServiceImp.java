@@ -27,6 +27,9 @@ public class ProblemServiceImp implements ProblemService {
         Problem res = problemMapper.selectProblemByQuestionId(problem.getQuestionId());
         if(res != null){
 //            System.out.println(problem);
+            if(problem.getDate() == null){
+                return 1;
+            }
             return problemMapper.updateDailyProblem(res.getProblem_id(), problem.getDate());
         }
         int status = problemMapper.insertProblem(problem);
