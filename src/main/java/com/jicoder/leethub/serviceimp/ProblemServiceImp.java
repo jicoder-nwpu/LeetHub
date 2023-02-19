@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class ProblemServiceImp implements ProblemService {
     public int insertProblem(Problem problem) {
         Problem res = problemMapper.selectProblemByQuestionId(problem.getQuestionId());
         if(res != null){
-            return res.getProblem_id();
+//            System.out.println(problem);
+            return problemMapper.updateDailyProblem(res.getProblem_id(), problem.getDate());
         }
         int status = problemMapper.insertProblem(problem);
         return problem.getProblem_id();

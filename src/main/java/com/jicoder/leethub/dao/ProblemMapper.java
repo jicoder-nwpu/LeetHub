@@ -1,10 +1,7 @@
 package com.jicoder.leethub.dao;
 
 import com.jicoder.leethub.pojo.Problem;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Date;
 
@@ -24,5 +21,8 @@ public interface ProblemMapper {
 
     @Select("select * from problem where type=" + Problem.DAILYPROBLEM + " and date=#{date}")
     Problem getDailyProblemByDate(Date date);
+
+    @Update("update problem set type=" + Problem.DAILYPROBLEM + ", date=#{date} where problem_id=#{problem_id}")
+    int updateDailyProblem(int problem_id, Date date);
 
 }

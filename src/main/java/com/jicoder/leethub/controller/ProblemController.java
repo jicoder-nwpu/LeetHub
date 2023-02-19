@@ -19,8 +19,8 @@ public class ProblemController {
     @ResponseBody
     @PostMapping("/insert")
     public int insertProblem(@RequestBody Problem problem){
-//        System.out.println(problem.toString());
         int res = problemService.insertProblem(problem);
+        System.out.println(res);
         return res;
     }
 
